@@ -20,5 +20,7 @@
         <activity android:name=".OsangProject2" />
         <activity android:name=".About" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
 
 </manifest>

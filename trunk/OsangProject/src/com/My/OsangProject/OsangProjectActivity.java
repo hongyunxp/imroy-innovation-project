@@ -2,7 +2,10 @@ package com.My.OsangProject;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,9 +18,13 @@ import android.widget.TextView;
 
 
 public class OsangProjectActivity extends Activity {
+	// 定义WifiManager对象
+    private WifiManager mWifiManager;
+	// 定义WifiInfo对象
+    private WifiInfo mWifiInfo;
 	Button confirm,Button2;
 	EditText name;
-	TextView name_v;
+	TextView name_wlan;
 	static String id=null;
     /** Called when the activity is first created. */
 	
@@ -25,13 +32,22 @@ public class OsangProjectActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
         name = (EditText)findViewById(R.id.username);
-        name_v = (TextView)findViewById(R.id.username1);
+        name_wlan = (TextView)findViewById(R.id.wlanid);
         confirm = (Button)findViewById(R.id.Button1);
+        
+       mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if (!mWifiManager.isWifiEnabled()) {  
+            mWifiManager.setWifiEnabled(true);  
+        }  
+        WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
+        name_wlan.setText(wifiInfo.getSSID());
+        
+
         confirm.setOnClickListener(new OnClickListener()
 		{
-			
-			public void onClick(View v)
+		public void onClick(View v)
 			{if(name.getTextSize()!=0){
 				id= name.getText().toString();
 				Intent intent = new Intent();

@@ -25,7 +25,7 @@
         android:capitalize="none"
         android:gravity="fill_horizontal"/>
     <TextView
-        android:id="@+id/wlanid"
+        
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
@@ -34,12 +34,29 @@
         android:gravity="left"/>
 
     <TextView
+        android:id="@+id/wlanid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
         android:text="当前尚未连入WLAN" 
         android:layout_gravity="center_horizontal"/>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="" 
+        android:layout_gravity="center_horizontal"/>
+    
+    <Button
+	android:id="@+id/widget47"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="80dip"
+	android:layout_marginRight="80dip"
+	android:text="检查WLAN" />
+    
 
     <Button
 

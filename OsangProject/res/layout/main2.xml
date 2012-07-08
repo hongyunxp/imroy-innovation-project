@@ -1,0 +1,189 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+<AbsoluteLayout
+	android:id="@+id/att"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+
+
+<TextView
+	android:id="@+id/id"
+	android:layout_width="65px"
+	android:layout_height="27px"
+	android:text="学号："
+	android:layout_x="10dp"
+	android:layout_y="30dp"
+ />
+<TextView
+	android:id="@+id/wifi"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="当前wifi:"
+	android:layout_x="10dp"
+	android:layout_y="60dp"
+ />
+<TextView
+	android:id="@+id/class_name"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="课程名称："
+	android:layout_x="50dp"
+	android:layout_y="130dp"
+ />
+<TextView
+	android:id="@+id/teacher_name"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="任课教师："
+	android:layout_x="50dp"
+	android:layout_y="160dp"
+ />
+<TextView
+	android:id="@+id/class_category"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="课程类别："
+	android:layout_x="50dp"
+	android:layout_y="190dp"
+ />
+<TextView
+	android:id="@+id/credit"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="学分："
+	android:layout_x="50dp"
+	android:layout_y="220dp"
+ />
+<TextView
+	android:id="@+id/class_time"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="学时："
+	android:layout_x="50dp"
+	android:layout_y="250dp"
+/>
+<Button
+	android:id="@+id/login"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:layout_marginLeft="80dip"
+    android:layout_marginRight="80dip"
+	android:text=" 进入课堂 "
+	android:layout_y="300dp"
+/>
+<Button
+	android:id="@+id/btn_return"
+	android:text="　返回 　"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:layout_marginLeft="80dip"
+    android:layout_marginRight="80dip"
+	android:layout_y="350dp"
+
+/>
+<TextView
+	android:id="@+id/id_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="105dp"
+	android:layout_y="31dp" />
+<TextView
+	android:id="@+id/wifi_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="105dp"
+	android:layout_y="60dp" />
+<TextView
+	android:id="@+id/class_name_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="135dp"
+	android:layout_y="129dp" />
+<TextView
+	android:id="@+id/teacher_name_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="135dp"
+	android:layout_y="161dp" />
+<TextView
+	android:id="@+id/class_category_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="135dp"
+	android:layout_y="192dp" />
+<TextView
+	android:id="@+id/credit_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="135dp"
+	android:layout_y="217dp" />
+<TextView
+	android:id="@+id/class_time_show"
+	android:layout_width="205px"
+	android:layout_height="27dp"
+	android:text="EditText"
+	android:textSize="15sp"
+	android:layout_x="135dp"
+	android:layout_y="245dp" />
+
+</AbsoluteLayout>
+    
+<LinearLayout
+	android:id="@+id/commnunication"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView
+    android:id="@+id/permission"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="交流功能已关闭，请等待……"
+    android:layout_gravity="center"
+    ></TextView>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    ></TextView>
+<Button
+	android:id="@+id/send"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="　发送　"
+	android:layout_gravity="right"
+	/>
+<EditText
+	android:id="@+id/show"
+	android:layout_width="fill_parent"
+	android:layout_height="220dp"
+	android:maxLines="10"
+	android:gravity="top"
+	android:shadowRadius="3.0"
+	
+	android:textSize="18sp" />
+<TextView
+    android:id="@+id/tip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="（每次发言内容请控制在50字以内）"
+    android:layout_gravity="left"
+    ></TextView>
+</LinearLayout>
+　
+
+</TabHost>

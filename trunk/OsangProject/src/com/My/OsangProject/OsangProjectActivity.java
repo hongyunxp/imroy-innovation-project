@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +23,10 @@ public class OsangProjectActivity extends Activity {
     private WifiManager mWifiManager;
 	// 定义WifiInfo对象
     private WifiInfo mWifiInfo;
-	Button confirm,Button2;
+    
+    private final static String TAG = "WifiAdmin";
+    
+	Button confirm,Button2,check_wlan;
 	EditText name;
 	TextView name_wlan;
 	static String id=null;
@@ -36,15 +40,30 @@ public class OsangProjectActivity extends Activity {
         name = (EditText)findViewById(R.id.username);
         name_wlan = (TextView)findViewById(R.id.wlanid);
         confirm = (Button)findViewById(R.id.Button1);
+        check_wlan = (Button)findViewById(R.id.check_wlan);
         
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
             mWifiManager.setWifiEnabled(true);  
         }  
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        name_wlan.setText(wifiInfo.getSSID());
+        name_wlan.setText("               "+wifiInfo.getSSID());
         
 
+        check_wlan.setOnClickListener(new OnClickListener()
+		{
+		public void onClick(View v)
+		
+			{
+			if (mWifiInfo != null) {
+				Log.i(TAG, "网络正常工作");
+			} else {
+				Log.i(TAG, "网络已断开");
+			}
+			//startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+			}
+		});
+        
         confirm.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)

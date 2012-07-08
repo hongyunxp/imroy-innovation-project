@@ -10,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
+        android:textSize="18sp"
+	    android:textStyle="bold"
         android:text="学号:"
         android:hint="请输入学号"
         android:gravity="left"/>
@@ -21,6 +23,8 @@
         android:layout_marginLeft="50dip"
         android:layout_marginRight="50dip"
         android:scrollHorizontally="true"
+        android:textSize="18sp"
+	    android:textStyle="bold"
         android:autoText="false"
         android:capitalize="none"
         android:gravity="fill_horizontal"/>
@@ -30,6 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
+        android:textSize="18sp"
+	    android:textStyle="bold"
         android:text="WLAN:"
         android:gravity="left"/>
 
@@ -39,8 +45,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
+        android:textSize="18sp"
+	    android:textStyle="bold"
         android:text="当前尚未连入WLAN" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="left"/>
+    
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,29 +59,33 @@
         android:layout_gravity="center_horizontal"/>
     
     <Button
-	android:id="@+id/widget47"
+	android:id="@+id/check_wlan"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	android:textSize="18sp"
+	android:textStyle="bold"
 	android:layout_marginLeft="80dip"
 	android:layout_marginRight="80dip"
-	android:text="检查WLAN" />
+	android:text="更改WLAN状态" />
     
 
     <Button
 
         android:id="@+id/Button1"
         android:layout_width="fill_parent" 
-        android:layout_height="40dip" 
-        android:layout_marginLeft="80dip"
-        android:layout_marginRight="80dip"
-        android:layout_marginTop="260dip"
+        android:layout_height="wrap_content" 
+
+        android:textSize="18sp"
+	    android:textStyle="bold"
+        android:layout_marginTop="200dip"
         android:text="确定"/>
     <Button
 
         android:id="@+id/Button2"
         android:layout_width="fill_parent" 
-        android:layout_height="40dip" 
-        android:layout_marginLeft="80dip"
-        android:layout_marginRight="80dip"
+        android:layout_height="wrap_content" 
+        android:textSize="18sp"
+	    android:textStyle="bold"
+
         android:text="退出"/>
 </LinearLayout>

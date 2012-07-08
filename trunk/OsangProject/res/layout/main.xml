@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/win7"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/username1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="学号:"
+        android:hint="请输入学号"
+        android:gravity="left"/>
+    <EditText
+        android:id="@+id/username"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="50dip"
+        android:layout_marginRight="50dip"
+        android:scrollHorizontally="true"
+        android:autoText="false"
+        android:capitalize="none"
+        android:gravity="fill_horizontal"/>
+    <TextView
+        android:id="@+id/wlanid"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="WLAN:"
+        android:gravity="left"/>
+    <Spinner
+        android:id="@+id/Spinner1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dip"
+        android:layout_marginRight="70dip"
+        android:layout_centerHorizontal="true">
+        
+    </Spinner>
+    <Button
+
+        android:id="@+id/Button1"
+        android:layout_width="fill_parent" 
+        android:layout_height="40dip" 
+        android:layout_marginLeft="80dip"
+        android:layout_marginRight="80dip"
+        android:layout_marginTop="260dip"
+        android:text="确定"/>
+    <Button
+
+        android:id="@+id/Button2"
+        android:layout_width="fill_parent" 
+        android:layout_height="40dip" 
+        android:layout_marginLeft="80dip"
+        android:layout_marginRight="80dip"
+        android:text="退出"/>
+</LinearLayout>

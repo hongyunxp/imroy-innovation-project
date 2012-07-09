@@ -26,7 +26,7 @@ public class OsangProjectActivity extends Activity {
     
     private final static String TAG = "WifiAdmin";
     
-	Button confirm,Button2,check_wlan;
+	Button confirm,exit,check_wlan;
 	EditText name;
 	TextView name_wlan;
 	static String id=null;
@@ -37,30 +37,26 @@ public class OsangProjectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        name = (EditText)findViewById(R.id.username);
-        name_wlan = (TextView)findViewById(R.id.wlanid);
-        confirm = (Button)findViewById(R.id.Button1);
-        check_wlan = (Button)findViewById(R.id.check_wlan);
+        name = (EditText)findViewById(R.id.editView_id);
+        name_wlan = (TextView)findViewById(R.id.textView_show_wlanId);
+        confirm = (Button)findViewById(R.id.button_confirm);
+        check_wlan = (Button)findViewById(R.id.button_checkWlan);
         
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
-            mWifiManager.setWifiEnabled(true);  
-        }  
+        	name_wlan.setText("当前尚未连入WLAN");
+        }
+        else{
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        name_wlan.setText("               "+wifiInfo.getSSID());
-        
+        name_wlan.setText(wifiInfo.getSSID());
+        }
 
         check_wlan.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)
 		
 			{
-			if (mWifiInfo != null) {
-				Log.i(TAG, "网络正常工作");
-			} else {
-				Log.i(TAG, "网络已断开");
-			}
-			//startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+			startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
 			}
 		});
         
@@ -76,8 +72,8 @@ public class OsangProjectActivity extends Activity {
 			}
 			}
 		});
-        Button2 = (Button)findViewById(R.id.Button2);
-        Button2.setOnClickListener(new OnClickListener()
+        exit = (Button)findViewById(R.id.button_exit);
+        exit.setOnClickListener(new OnClickListener()
 		{
 			
 			public void onClick(View v)

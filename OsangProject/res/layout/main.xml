@@ -1,91 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:background="@drawable/win7"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+   >
     <TextView
-        android:id="@+id/username1"
+        android:id="@+id/textView_id"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:textSize="18sp"
+        android:layout_marginTop="30dip"
+        android:textSize="20sp"
 	    android:textStyle="bold"
         android:text="学号:"
-        android:hint="请输入学号"
-        android:gravity="left"/>
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="true"
+        />
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/editView_id"
         android:inputType="number"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_marginLeft="50dip"
-        android:layout_marginRight="50dip"
+        android:layout_width="200dp"
         android:scrollHorizontally="true"
-        android:textSize="18sp"
+        android:textSize="20sp"
 	    android:textStyle="bold"
         android:autoText="false"
         android:capitalize="none"
-        android:gravity="fill_horizontal"/>
+        android:layout_below="@+id/textView_id"
+        android:layout_toRightOf="@+id/textView_id"        
+/>
     <TextView
-        
+        android:id="@+id/textView_wlanId"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:textSize="18sp"
+        android:textSize="20sp"
 	    android:textStyle="bold"
-        android:text="WLAN:"
-        android:gravity="left"/>
+        android:text="当前WLAN:"
+        android:layout_below="@+id/editView_id"
+        android:layout_alignLeft="@+id/textView_id"/>
 
     <TextView
-        android:id="@+id/wlanid"
+        android:id="@+id/textView_show_wlanId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
-        android:textSize="18sp"
+        android:textSize="20sp"
 	    android:textStyle="bold"
-        android:text="当前尚未连入WLAN" 
-        android:layout_gravity="left"/>
+        android:layout_below="@+id/textView_wlanId"
+        android:layout_alignLeft="@+id/editView_id"/>
     
         <TextView
+        android:id="@+id/textView_null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_marginRight="20dip"
         android:text="" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_below="@+id/textView_show_wlanId"/>
     
     <Button
-	android:id="@+id/check_wlan"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:textSize="18sp"
-	android:textStyle="bold"
-	android:layout_marginLeft="80dip"
-	android:layout_marginRight="80dip"
-	android:text="更改WLAN状态" />
-    
-
-    <Button
-
-        android:id="@+id/Button1"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" 
-
-        android:textSize="18sp"
+	    android:id="@+id/button_checkWlan"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
 	    android:textStyle="bold"
-        android:layout_marginTop="200dip"
-        android:text="确定"/>
-    <Button
+	    android:text="更改WLAN状态" 
+	    android:layout_below="@+id/textView_null"
+	    android:layout_centerHorizontal="true"/>
 
-        android:id="@+id/Button2"
+    <Button
+        android:id="@+id/button_confirm"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" 
         android:textSize="18sp"
 	    android:textStyle="bold"
-
-        android:text="退出"/>
-</LinearLayout>
+        android:text="确定"
+        android:layout_above="@+id/button_exit"/>
+    <Button
+        android:id="@+id/button_exit"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:textSize="18sp"
+	    android:textStyle="bold"
+        android:text="退出"
+        android:layout_alignParentBottom="true"/>
+   
+</RelativeLayout>

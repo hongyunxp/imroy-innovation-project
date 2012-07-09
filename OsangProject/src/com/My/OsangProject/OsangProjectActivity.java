@@ -48,7 +48,10 @@ public class OsangProjectActivity extends Activity {
         }
         else{
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        name_wlan.setText(wifiInfo.getSSID());
+        if(wifiInfo.getSSID()!=null)
+        	     name_wlan.setText(wifiInfo.getSSID());
+        else
+        	name_wlan.setText("当前尚未连入WLAN");
         }
 
         check_wlan.setOnClickListener(new OnClickListener()
@@ -56,7 +59,9 @@ public class OsangProjectActivity extends Activity {
 		public void onClick(View v)
 		
 			{
+			
 			startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+			
 			}
 		});
         
@@ -83,6 +88,24 @@ public class OsangProjectActivity extends Activity {
 		});
         
     }
+    
+    @Override
+    public void onResume(){
+    	super.onResume();
+        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if (!mWifiManager.isWifiEnabled()) {  
+        	name_wlan.setText("当前尚未连入WLAN");
+        }
+        else{
+        WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
+        if(wifiInfo.getSSID()!=null)
+        	     name_wlan.setText(wifiInfo.getSSID());
+        else
+        	name_wlan.setText("当前尚未连入WLAN");
+        }
+    	
+    }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub

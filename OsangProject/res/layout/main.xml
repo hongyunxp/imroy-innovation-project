@@ -30,6 +30,13 @@
         android:layout_below="@+id/textView_id"
         android:layout_toRightOf="@+id/textView_id"        
 />
+            <TextView
+        android:id="@+id/textView_null0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" 
+        android:layout_below="@+id/editView_id"/>
+    
     <TextView
         android:id="@+id/textView_wlanId"
         android:layout_height="wrap_content"
@@ -37,7 +44,7 @@
         android:textSize="20sp"
 	    android:textStyle="bold"
         android:text="当前WLAN:"
-        android:layout_below="@+id/editView_id"
+        android:layout_below="@+id/textView_null0"
         android:layout_alignLeft="@+id/textView_id"/>
 
     <TextView
@@ -46,6 +53,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
 	    android:textStyle="bold"
+	    android:gravity="center"
         android:layout_below="@+id/textView_wlanId"
         android:layout_alignLeft="@+id/editView_id"/>
     

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -39,7 +41,9 @@ public class OsangProjectActivity extends Activity {
 	Button confirm,exit,check_wlan;
 	EditText name;
 	TextView name_wlan;
+	static boolean isUDPReceived = false;
 	static String id=null;
+	Dialog myPrepare;
     /** Called when the activity is first created. */
 	
     @Override
@@ -52,6 +56,7 @@ public class OsangProjectActivity extends Activity {
         confirm = (Button)findViewById(R.id.button_confirm);
         check_wlan = (Button)findViewById(R.id.button_checkWlan);
         final android.app.AlertDialog.Builder prepare = new AlertDialog.Builder(this);
+		
         
         
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -88,10 +93,13 @@ public class OsangProjectActivity extends Activity {
 				RelativeLayout prepare_Layout = (RelativeLayout)getLayoutInflater()
 						.inflate(R.layout.prepare_alert_dialog,null);
 				prepare.setView(prepare_Layout);
-				Dialog myPrepare = prepare.create();
+				myPrepare = prepare.create();
 				myPrepare.show();
-				
-	       try
+
+				ReceiveUDP_THREAD rTask = null;
+				rTask = new ReceiveUDP_THREAD();
+	            rTask.execute();  
+/*	       try
              {
 			            DatagramSocket socket = new DatagramSocket(4567);
 
@@ -100,9 +108,10 @@ public class OsangProjectActivity extends Activity {
 			            DatagramPacket packet = new DatagramPacket(data, data.length);
 
 			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
-			            //socket.receive(packet);
-			            //String result = new String(packet.getData(), packet.getOffset(),
-			                    //packet.getLength());
+			            socket.setSoTimeout(900);
+			            socket.receive(packet);
+			            String result = new String(packet.getData(), packet.getOffset(),
+			                    packet.getLength());
 
 			        }
 			        catch (SocketException e)
@@ -112,13 +121,13 @@ public class OsangProjectActivity extends Activity {
 			        catch (IOException e)
 			        {
 			            e.printStackTrace();
-			        }
+			        }*/
 
-				
-				id= name.getText().toString();
+			
+				/*id= name.getText().toString();
 				Intent intent = new Intent();
 				intent.setClass(OsangProjectActivity.this, OsangProject2.class);
-				startActivity(intent);
+				startActivity(intent);*/
                 
 				//myPrepare.dismiss();
 				
@@ -187,6 +196,54 @@ public class OsangProjectActivity extends Activity {
 		}
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public class ReceiveUDP_THREAD extends AsyncTask{
+
+
+		@Override
+		protected Object doInBackground(Object... params) {
+			// TODO Auto-generated method stub
+		try
+             {
+			            DatagramSocket socket = new DatagramSocket(4567);
+
+			            byte data[] = new byte[1024];
+			            // 创建一个空 DatagramPacket 对象
+			            DatagramPacket packet = new DatagramPacket(data, data.length);
+
+			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
+			            socket.setSoTimeout(9000);
+			            socket.receive(packet);
+			            String result = new String(packet.getData(), packet.getOffset(),
+			                    packet.getLength());
+
+			        }
+			        catch (SocketException e)
+			        {
+			            e.printStackTrace();
+			        }
+			        catch (IOException e)
+			        {
+			            e.printStackTrace();
+			        }
+			
+			/*try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+			myPrepare.dismiss();
+			isUDPReceived=true;
+			id= name.getText().toString();
+			Intent intent = new Intent();
+			intent.setClass(OsangProjectActivity.this, OsangProject2.class);
+			startActivity(intent);
+			return null;
+		}
+		
+
 	}
     
 }

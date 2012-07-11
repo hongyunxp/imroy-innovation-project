@@ -55,7 +55,8 @@
 	    android:textStyle="bold"
 	    android:gravity="center"
         android:layout_below="@+id/textView_wlanId"
-        android:layout_alignLeft="@+id/editView_id"/>
+        android:layout_alignLeft="@+id/editView_id"
+         android:layout_alignRight="@+id/editView_id"/>
     
         <TextView
         android:id="@+id/textView_null"

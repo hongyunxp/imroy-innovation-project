@@ -213,7 +213,7 @@ public class OsangProjectActivity extends Activity {
 			            DatagramPacket packet = new DatagramPacket(data, data.length);
 
 			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
-			            socket.setSoTimeout(9000);
+			            socket.setSoTimeout(5000);
 			            socket.receive(packet);
 			            String result = new String(packet.getData(), packet.getOffset(),
 			                    packet.getLength());

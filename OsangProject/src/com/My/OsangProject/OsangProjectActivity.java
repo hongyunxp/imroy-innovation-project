@@ -1,9 +1,18 @@
 package com.My.OsangProject;
 
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentProviderOperation.Builder;
 import android.content.Context;
 import android.content.Intent;
+import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -15,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -41,6 +51,8 @@ public class OsangProjectActivity extends Activity {
         name_wlan = (TextView)findViewById(R.id.textView_show_wlanId);
         confirm = (Button)findViewById(R.id.button_confirm);
         check_wlan = (Button)findViewById(R.id.button_checkWlan);
+        final android.app.AlertDialog.Builder prepare = new AlertDialog.Builder(this);
+        
         
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
@@ -53,7 +65,8 @@ public class OsangProjectActivity extends Activity {
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
-
+        
+        
         check_wlan.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)
@@ -68,15 +81,53 @@ public class OsangProjectActivity extends Activity {
         confirm.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)
-			{if(name.getTextSize()!=0){
+			{
+			
+			if(name.getText().toString().length()!=0){
+
+				RelativeLayout prepare_Layout = (RelativeLayout)getLayoutInflater()
+						.inflate(R.layout.prepare_alert_dialog,null);
+				prepare.setView(prepare_Layout);
+				Dialog myPrepare = prepare.create();
+				myPrepare.show();
+				
+	       try
+             {
+			            DatagramSocket socket = new DatagramSocket(4567);
+
+			            byte data[] = new byte[1024];
+			            // 创建一个空 DatagramPacket 对象
+			            DatagramPacket packet = new DatagramPacket(data, data.length);
+
+			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
+			            //socket.receive(packet);
+			            //String result = new String(packet.getData(), packet.getOffset(),
+			                    //packet.getLength());
+
+			        }
+			        catch (SocketException e)
+			        {
+			            e.printStackTrace();
+			        }
+			        catch (IOException e)
+			        {
+			            e.printStackTrace();
+			        }
+
+				
 				id= name.getText().toString();
 				Intent intent = new Intent();
 				intent.setClass(OsangProjectActivity.this, OsangProject2.class);
 				startActivity(intent);
+                
+				//myPrepare.dismiss();
+				
 				
 			}
 			}
 		});
+        
+        
         exit = (Button)findViewById(R.id.button_exit);
         exit.setOnClickListener(new OnClickListener()
 		{
@@ -92,6 +143,7 @@ public class OsangProjectActivity extends Activity {
     @Override
     public void onResume(){
     	super.onResume();
+
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
         	name_wlan.setText("当前尚未连入WLAN");

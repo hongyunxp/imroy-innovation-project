@@ -38,7 +38,7 @@ public class OsangProject2 extends TabActivity {
 		tabHost.addTab(tabHost.newTabSpec("att")
 				.setIndicator("Ç©µ½"/*,getResources().getDrawable(R.drawable.i3)*/)
 				.setContent(R.id.att));
-		tabHost.addTab(tabHost.newTabSpec("text2")
+		tabHost.addTab(tabHost.newTabSpec("communicate")
 				.setIndicator("½»Á÷"/*,getResources().getDrawable(R.drawable.i2)*/)
 				.setContent(R.id.commnunication));
 		

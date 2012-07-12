@@ -13,14 +13,26 @@ import android.widget.TextView;
 
 
 public class OsangProject2 extends TabActivity {
+    TextView textView_id,textView_wlanName,textView_className,
+    textView_teacherName,textView_classCategory,textView_credit,
+    textView_classTime;
+    
 	TextView permission;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		/*TextView commu_permission = (TextView)findViewById(R.id.permission);
 		commu_permission.setTextColor(Color.RED);*/
-	    
+        
+        String class_info = null;
+        String IP = null;
 		super.onCreate(savedInstanceState);
+
+        Intent intent =getIntent();
+        Bundle data = intent.getExtras();
+        class_info = data.getString("class_info");
+        String[] arr_classInfo =class_info.split("#");
+
 		TabHost tabHost = getTabHost();
 		LayoutInflater.from(this).inflate(R.layout.main2, tabHost.getTabContentView(),true);
 		tabHost.addTab(tabHost.newTabSpec("att")
@@ -30,6 +42,23 @@ public class OsangProject2 extends TabActivity {
 				.setIndicator("½»Á÷"/*,getResources().getDrawable(R.drawable.i2)*/)
 				.setContent(R.id.commnunication));
 		
+		textView_id = (TextView)findViewById(R.id.textView_id);
+		textView_wlanName = (TextView)findViewById(R.id.textView_wlanName);
+		textView_className = (TextView)findViewById(R.id.textView_className);
+	    textView_teacherName = (TextView)findViewById(R.id.textView_teacherName);
+	    textView_classCategory = (TextView)findViewById(R.id.textView_classCategory);
+	    textView_credit = (TextView)findViewById(R.id.textView_credit);
+	    textView_classTime = (TextView)findViewById(R.id.textView_classTime);
+		
+	    textView_id.setText(arr_classInfo[0]);
+	    textView_wlanName.setText(arr_classInfo[1]);
+	    textView_className.setText(arr_classInfo[2]);
+	    textView_teacherName.setText(arr_classInfo[3]);
+	    textView_classCategory.setText(arr_classInfo[4]);
+	    textView_credit.setText(arr_classInfo[5]);
+	    textView_classTime.setText(arr_classInfo[6]);
+	    IP = arr_classInfo[7];
+	    
 		permission = (TextView)findViewById(R.id.permission);
 		permission.setTextColor(Color.RED);
 		

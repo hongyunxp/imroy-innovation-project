@@ -38,10 +38,12 @@ public class OsangProjectActivity extends Activity {
 	EditText name;
     static TextView name_wlan;
 	static boolean isUDPReceived = false;
-	static String id=null;
 	static String udp=null;
+	String id=null;
+    String wlan_name=null;
+    
 	Dialog myPrepare;
-	exit myExit=new exit();
+
 	// 定义WifiManager对象
     private WifiManager mWifiManager;
 	// 定义WifiInfo对象
@@ -54,9 +56,6 @@ public class OsangProjectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        
-        myExit.getInstance().addActivity(this);
-        
         name = (EditText)findViewById(R.id.editView_id);
         name_wlan = (TextView)findViewById(R.id.textView_show_wlanId);
         confirm = (Button)findViewById(R.id.button_confirm);
@@ -68,11 +67,13 @@ public class OsangProjectActivity extends Activity {
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
         	name_wlan.setText("当前尚未连入WLAN");
-        }
+        	}
         else{
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        if(wifiInfo.getSSID()!=null)
-        	     name_wlan.setText(wifiInfo.getSSID());
+        if(wifiInfo.getSSID()!=null){
+            name_wlan.setText(wifiInfo.getSSID());
+            wlan_name=wifiInfo.getSSID();
+            }
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
@@ -93,8 +94,8 @@ public class OsangProjectActivity extends Activity {
 		public void onClick(View v)
 			{
 			
-			if(name.getText().toString().length()!=0){
-
+			if(name.getText().toString().length()!=0 && wlan_name!=null){
+			    id= name.getText().toString();
 				RelativeLayout prepare_Layout = (RelativeLayout)getLayoutInflater()
 						.inflate(R.layout.prepare_alert_dialog,null);
 				prepare.setView(prepare_Layout);
@@ -104,38 +105,6 @@ public class OsangProjectActivity extends Activity {
 				ReceiveUDP_THREAD rTask = null;
 				rTask = new ReceiveUDP_THREAD();
 	            rTask.execute();  
-/*	       try
-             {
-			            DatagramSocket socket = new DatagramSocket(4567);
-
-			            byte data[] = new byte[1024];
-			            // 创建一个空 DatagramPacket 对象
-			            DatagramPacket packet = new DatagramPacket(data, data.length);
-
-			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
-			            socket.setSoTimeout(900);
-			            socket.receive(packet);
-			            String result = new String(packet.getData(), packet.getOffset(),
-			                    packet.getLength());
-
-			        }
-			        catch (SocketException e)
-			        {
-			            e.printStackTrace();
-			        }
-			        catch (IOException e)
-			        {
-			            e.printStackTrace();
-			        }*/
-
-			
-				/*id= name.getText().toString();
-				Intent intent = new Intent();
-				intent.setClass(OsangProjectActivity.this, OsangProject2.class);
-				startActivity(intent);*/
-                
-				//myPrepare.dismiss();
-				
 				
 			}
 			}
@@ -146,7 +115,9 @@ public class OsangProjectActivity extends Activity {
 			
 			public void onClick(View v)
 			{
+			    /*完全关闭并推出程序，仅有finish（）的话只能实现销毁当前activity*/
 				OsangProjectActivity.this.finish();
+				System.exit(0); 
 			}
 		});
         
@@ -154,20 +125,24 @@ public class OsangProjectActivity extends Activity {
     
     @Override
     public void onResume(){
-    	super.onResume();
 
+        super.onResume();
+        id=null;
+        wlan_name=null;
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
         	name_wlan.setText("当前尚未连入WLAN");
         }
         else{
         WifiInfo wifiInfo = mWifiManager.getConnectionInfo();
-        if(wifiInfo.getSSID()!=null)
-        	     name_wlan.setText(wifiInfo.getSSID());
+        if(wifiInfo.getSSID()!=null){
+            name_wlan.setText(wifiInfo.getSSID());
+        	wlan_name=wifiInfo.getSSID(); 
+        }
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
-        
+        //name_wlan.setText(udp);
     	
     }
     
@@ -208,6 +183,7 @@ public class OsangProjectActivity extends Activity {
 		@Override
 		protected Object doInBackground(Object... params) {
 			// TODO Auto-generated method stub
+		    String result=null;
 		try
              {
 			            DatagramSocket socket = new DatagramSocket(4567);
@@ -218,9 +194,18 @@ public class OsangProjectActivity extends Activity {
 			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
 			            socket.setSoTimeout(10000);
 			            socket.receive(packet);
-			            String result = new String(packet.getData(), packet.getOffset(),
+			            result = new String(packet.getData(), packet.getOffset(),
 			                    packet.getLength());
 			            udp=result;
+			             
+			             myPrepare.dismiss();
+
+			             Bundle class_infor = new Bundle();
+			             class_infor.putString("class_info",id+"#"+wlan_name+"#"+result);
+			             Intent intent = new Intent();
+			             intent.putExtras(class_infor);
+			             intent.setClass(OsangProjectActivity.this, OsangProject2.class);
+			             startActivity(intent);
 
 			        }
 			        catch (SocketException e)
@@ -231,15 +216,15 @@ public class OsangProjectActivity extends Activity {
 			        {
 			            e.printStackTrace();
 			        }
-			
 
-			myPrepare.dismiss();
-			id= name.getText().toString();
-			Intent intent = new Intent();
-			intent.setClass(OsangProjectActivity.this, OsangProject2.class);
-			startActivity(intent);
-			return null;
+			return result;
 		}
+		
+        protected void onProgressUpdate(Integer... progress) {  
+             super.onProgressUpdate(progress);
+
+             
+        }  
 		
 
 	}

@@ -84,58 +84,58 @@
 
 />
 <TextView
-	android:id="@+id/id_show"
+	android:id="@+id/textView_id"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="105dp"
 	android:layout_y="31dp" />
 <TextView
-	android:id="@+id/wifi_show"
+	android:id="@+id/textView_wlanName"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="105dp"
 	android:layout_y="60dp" />
 <TextView
-	android:id="@+id/class_name_show"
+	android:id="@+id/textView_className"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="135dp"
 	android:layout_y="129dp" />
 <TextView
-	android:id="@+id/teacher_name_show"
+	android:id="@+id/textView_teacherName"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="135dp"
 	android:layout_y="161dp" />
 <TextView
-	android:id="@+id/class_category_show"
+	android:id="@+id/textView_classCategory"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="135dp"
 	android:layout_y="192dp" />
 <TextView
-	android:id="@+id/credit_show"
+	android:id="@+id/textView_credit"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="135dp"
 	android:layout_y="217dp" />
 <TextView
-	android:id="@+id/class_time_show"
+	android:id="@+id/textView_classTime"
 	android:layout_width="205px"
 	android:layout_height="27dp"
-	android:text="EditText"
+	android:text=""
 	android:textSize="15sp"
 	android:layout_x="135dp"
 	android:layout_y="245dp" />

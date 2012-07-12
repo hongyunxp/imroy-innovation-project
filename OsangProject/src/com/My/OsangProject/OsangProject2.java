@@ -19,6 +19,7 @@ public class OsangProject2 extends TabActivity {
 	public void onCreate(Bundle savedInstanceState){
 		/*TextView commu_permission = (TextView)findViewById(R.id.permission);
 		commu_permission.setTextColor(Color.RED);*/
+	    
 		super.onCreate(savedInstanceState);
 		TabHost tabHost = getTabHost();
 		LayoutInflater.from(this).inflate(R.layout.main2, tabHost.getTabContentView(),true);

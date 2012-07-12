@@ -31,19 +31,22 @@ import android.widget.TextView;
 
 
 public class OsangProjectActivity extends Activity {
+
+    private final static String TAG = "WifiAdmin";
+    
+	Button confirm,exit,check_wlan;
+	EditText name;
+    static TextView name_wlan;
+	static boolean isUDPReceived = false;
+	static String id=null;
+	static String udp=null;
+	Dialog myPrepare;
+	exit myExit=new exit();
 	// 定义WifiManager对象
     private WifiManager mWifiManager;
 	// 定义WifiInfo对象
     private WifiInfo mWifiInfo;
     
-    private final static String TAG = "WifiAdmin";
-    
-	Button confirm,exit,check_wlan;
-	EditText name;
-	TextView name_wlan;
-	static boolean isUDPReceived = false;
-	static String id=null;
-	Dialog myPrepare;
     /** Called when the activity is first created. */
 	
     @Override
@@ -51,14 +54,17 @@ public class OsangProjectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        
+        myExit.getInstance().addActivity(this);
+        
         name = (EditText)findViewById(R.id.editView_id);
         name_wlan = (TextView)findViewById(R.id.textView_show_wlanId);
         confirm = (Button)findViewById(R.id.button_confirm);
         check_wlan = (Button)findViewById(R.id.button_checkWlan);
+        exit = (Button)findViewById(R.id.button_exit);
+        
         final android.app.AlertDialog.Builder prepare = new AlertDialog.Builder(this);
-		
-        
-        
+
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {  
         	name_wlan.setText("当前尚未连入WLAN");
@@ -70,8 +76,7 @@ public class OsangProjectActivity extends Activity {
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
-        
-        
+
         check_wlan.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)
@@ -82,7 +87,7 @@ public class OsangProjectActivity extends Activity {
 			
 			}
 		});
-        
+
         confirm.setOnClickListener(new OnClickListener()
 		{
 		public void onClick(View v)
@@ -135,9 +140,7 @@ public class OsangProjectActivity extends Activity {
 			}
 			}
 		});
-        
-        
-        exit = (Button)findViewById(R.id.button_exit);
+
         exit.setOnClickListener(new OnClickListener()
 		{
 			
@@ -164,6 +167,7 @@ public class OsangProjectActivity extends Activity {
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
+        
     	
     }
     
@@ -191,7 +195,7 @@ public class OsangProjectActivity extends Activity {
 		case 1:
 		{
 			
-			OsangProjectActivity.this.finish();
+		    android.os.Process.killProcess(android.os.Process.myPid()); 
 			break;
 		}
 		}
@@ -211,12 +215,12 @@ public class OsangProjectActivity extends Activity {
 			            byte data[] = new byte[1024];
 			            // 创建一个空 DatagramPacket 对象
 			            DatagramPacket packet = new DatagramPacket(data, data.length);
-
 			            // 使用 receiver 方法接收客户端所发送到数据， 如果客户端没有发送数据， 进程阻塞
-			            socket.setSoTimeout(5000);
+			            socket.setSoTimeout(10000);
 			            socket.receive(packet);
 			            String result = new String(packet.getData(), packet.getOffset(),
 			                    packet.getLength());
+			            udp=result;
 
 			        }
 			        catch (SocketException e)
@@ -228,14 +232,8 @@ public class OsangProjectActivity extends Activity {
 			            e.printStackTrace();
 			        }
 			
-			/*try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+
 			myPrepare.dismiss();
-			isUDPReceived=true;
 			id= name.getText().toString();
 			Intent intent = new Intent();
 			intent.setClass(OsangProjectActivity.this, OsangProject2.class);
@@ -245,5 +243,6 @@ public class OsangProjectActivity extends Activity {
 		
 
 	}
+	
     
 }

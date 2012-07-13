@@ -9,7 +9,7 @@ public class AttThread extends Thread{
 		// TODO Auto-generated method stub
 		while(true){
 			if(Socketinitialize.allmsg.size()!=0){
-			for(clientmsg msg:Socketinitialize.allmsg){
+			for(clientMsg msg:Socketinitialize.allmsg){
 				for(int i=0;i<MainFrame.inforshow.getRowCount();i++){
 					if(msg.id.equals(MainFrame.inforshow.getValueAt(i,1).toString())){
 						String[]tem={

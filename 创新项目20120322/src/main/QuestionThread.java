@@ -20,11 +20,11 @@ public class QuestionThread extends Thread {
    if(Socketinitialize.allthread.size()!=0){
    while(true){
 	   System.out.println(Socketinitialize.allmsg.size());
-	  for(clientmsg msg:Socketinitialize.allmsg){
+	  for(clientMsg msg:Socketinitialize.allmsg){
 		  if(msg.havenew){
 			  
 		  Question.show.append(msg.getid()+":\r\n");
-		  Question.show.append(msg.sendnews()+"\r\n");
+		  Question.show.append(msg.sendNews()+"\r\n");
 		  Question.show.append("\r\n");
 		  Question.show.append("\r\n");
 		  

@@ -15,10 +15,10 @@ public class ServerThread extends Thread  {
 		BufferedReader br = null;
 		
 		//该线程所处理的Socket所对应的输出流
-	    OutputStream os; 
+	    OutputStream os = null; 
 	    
 	    String content=null;
-	    clientmsg msg =null;
+	    clientMsg msg =null;
 	    	    
 		public ServerThread(Socket s)
 			throws IOException
@@ -45,12 +45,12 @@ public class ServerThread extends Thread  {
 		}
 		
 		try {
-			while(msg==null&&(content=br.readLine())!=null){
+		    while(msg==null&&(content=br.readLine())!=null){
 				boolean cmsg_creat_finish=false;
 				for(int i=0;i<Socketinitialize.allmsg.size();i++){
 					if(Socketinitialize.allmsg.get(i).getid().equals(content)){
 				    Socketinitialize.allmsg.remove(i);
-					msg = new clientmsg(content);
+					msg = new clientMsg(content);
 					Socketinitialize.allmsg.add(msg);
 					cmsg_creat_finish=true;
 					break;
@@ -58,7 +58,7 @@ public class ServerThread extends Thread  {
 				}
 			if(cmsg_creat_finish==false){					
 				/*System.out.println(content);*/
-				msg = new clientmsg(content);
+				msg = new clientMsg(content);
 				Socketinitialize.allmsg.add(msg);
 				/*System.out.print("已完成信息通道");*/
 			}
@@ -72,7 +72,7 @@ public class ServerThread extends Thread  {
 		
 		try {
 			while((content=br.readLine())!=null){
-				this.msg.getnews(content);
+				this.msg.getNews(content);
 				System.out.println(content);
 			}
 		} catch (IOException e) {

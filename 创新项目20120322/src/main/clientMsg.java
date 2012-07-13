@@ -1,19 +1,19 @@
 package main;
 
-public class clientmsg {
+public class clientMsg {
 	String content;
 	boolean havenew=false;
 	String id;
 	
-	clientmsg(String s){
+	clientMsg(String s){
 		id=s;
 	}
 	
-public void getnews(String s){
+public void getNews(String s){
 	content = s;
 	havenew=true;
 }
-public String sendnews(){
+public String sendNews(){
 	if(havenew=true){
 		havenew=false;
 		return content;}

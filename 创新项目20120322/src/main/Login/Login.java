@@ -36,6 +36,12 @@ public class Login extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+	    try{
+            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+            UIManager.getLookAndFeelDefaults().put("defaultFont",new Font("Microsoft Yahei",Font.PLAIN,12));
+           }catch(Exception e){
+            e.printStackTrace();
+           } 
 		try {
 			Login dialog = new Login();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

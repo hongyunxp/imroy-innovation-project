@@ -19,7 +19,7 @@ public class Infor_show extends JDialog {
 
 	private static final long serialVersionUID = 3353827014941313072L;
 	private final JPanel contentPanel = new JPanel();
-    private static user_infor infor;
+    public static user_infor infor;
     private JComboBox choice_class=null;
 
 

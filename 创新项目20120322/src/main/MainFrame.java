@@ -27,6 +27,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -47,6 +48,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import main.Login.Infor_show;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -83,6 +87,7 @@ public class MainFrame extends JFrame {
 	public static DefaultTableModel att_tableModel = null;
 	public static DefaultTableModel vocate_tableModel = null;
 	private int count;
+	private String UDPMsg;
 	
 	private static JTextPane show = new JTextPane();
 
@@ -105,6 +110,31 @@ public class MainFrame extends JFrame {
 		show.setText("正在初始化学生信息……");
 		socketinitialize();
 		show.setText("正在初始化网络连接……");
+		
+		BufferedReader br = new BufferedReader(new FileReader(s+".txt"));
+        String[] tem_str;
+        tem_str = br.readLine().split(",");
+        String[] infor = {
+                tem_str[1],
+                tem_str[2],
+                tem_str[3],
+                tem_str[4],
+                tem_str[5],
+                tem_str[6],
+                tem_str[7]
+        };
+        
+        br.close();
+        
+        InetAddress addr = InetAddress.getLocalHost();
+        String ip = addr.getHostAddress();
+        System.out.println(ip);
+        
+		UDPMsg = infor[0]+"#"+Infor_show.infor.getname()+"#"+infor[1]
+		        +"#"+infor[3]+"#"+infor[4]+"#"+ip;
+		System.out.println(UDPMsg);
+		
+		new UDPThread(ip).start();
 
 		/*
 		 * 开始初始化UI界面、动作
@@ -203,7 +233,7 @@ public class MainFrame extends JFrame {
 		inforshow.setRowHeight(20);
 
 		JScrollPane scrollPane = new JScrollPane();// 设为可滚动面板
-		scrollPane.setBounds(597, 0, 422, 369);
+		scrollPane.setBounds(590, 0, 422, 369);
 		scrollPane.setViewportView(inforshow);
 
 		contentPane.add(scrollPane);
@@ -227,7 +257,7 @@ public class MainFrame extends JFrame {
 		att_inforshow.setRowHeight(20);
 
 		JScrollPane att_scrollPane = new JScrollPane();// 设为可滚动面板
-		att_scrollPane.setBounds(0, 0, 422, 369);
+		att_scrollPane.setBounds(10, 0, 422, 369);
 		att_scrollPane.setViewportView(att_inforshow);
 
 		contentPane.add(att_scrollPane);
@@ -249,7 +279,7 @@ public class MainFrame extends JFrame {
 		vocate_inforshow.setRowHeight(20);
 
 		JScrollPane vocate_scrollPane = new JScrollPane();// 设为可滚动面板
-		vocate_scrollPane.setBounds(597, 381, 422, 172);
+		vocate_scrollPane.setBounds(590, 381, 422, 172);
 		vocate_scrollPane.setViewportView(vocate_inforshow);
 
 		contentPane.add(vocate_scrollPane);
@@ -272,7 +302,7 @@ public class MainFrame extends JFrame {
 		late_inforshow.setRowHeight(20);
 
 		JScrollPane late_scrollPane = new JScrollPane();// 设为可滚动面板
-		late_scrollPane.setBounds(0, 381, 422, 172);
+		late_scrollPane.setBounds(10, 381, 422, 172);
 		late_scrollPane.setViewportView(late_inforshow);
 
 		contentPane.add(late_scrollPane);

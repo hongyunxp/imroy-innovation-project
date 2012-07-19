@@ -50,8 +50,8 @@ public class Class_show extends JDialog {
         		m[6],
         		m[7]
         };
-		
 		br.close();
+
 		
 		setTitle("¿Î³ÌÐÅÏ¢-"+s);
 		setBounds(100, 100, 400, 209);

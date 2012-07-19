@@ -62,7 +62,7 @@ public class Login extends JDialog {
 		/*开始初始化UI*/
 		setTitle("创新项目-登陆界面");
 		setResizable(false);
-		setBounds(100, 100, 420, 232);
+		setBounds(400,300, 420, 232);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(UIManager.getColor("Panel.background"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -18,6 +18,8 @@ public class UDPThread extends Thread{
     public void run() {
         
         String PartIP = LocalIP.substring(0, LocalIP.lastIndexOf(".")+1);
+        while(true)
+        {
         try
         {
             int i =0;
@@ -47,6 +49,7 @@ public class UDPThread extends Thread{
         catch (Exception e)
         {
             e.printStackTrace();
+        }
         }
     }
 

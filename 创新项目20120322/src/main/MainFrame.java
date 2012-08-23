@@ -132,7 +132,7 @@ public class MainFrame extends JFrame {
         
 		UDPMsg = infor[0]+"#"+Infor_show.infor.getname()+"#"+infor[1]
 		        +"#"+infor[3]+"#"+infor[4]+"#"+ip;
-		System.out.println(UDPMsg);
+		//System.out.println(UDPMsg);
 		
 		new UDPThread(ip).start();
 

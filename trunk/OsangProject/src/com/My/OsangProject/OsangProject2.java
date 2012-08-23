@@ -1,13 +1,27 @@
 package com.My.OsangProject;
 
+
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -18,20 +32,38 @@ public class OsangProject2 extends TabActivity {
     textView_classTime;
     
 	TextView permission;
-	
+    OutputStream os;
+    Handler handler;
+    Socket s;
+    String IP = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		/*TextView commu_permission = (TextView)findViewById(R.id.permission);
 		commu_permission.setTextColor(Color.RED);*/
         
         String class_info = null;
-        String IP = null;
+        
 		super.onCreate(savedInstanceState);
 
         Intent intent =getIntent();
         Bundle data = intent.getExtras();
         class_info = data.getString("class_info");
-        String[] arr_classInfo =class_info.split("#");
+        final String[] arr_classInfo =class_info.split("#");
+
+
+        handler = new Handler()
+        {
+            @Override
+            public void handleMessage(Message msg)
+            {
+                // 如果消息来自于子线程
+                if (msg.what == 0x123)
+                {
+                    // 将读取的内容追加显示在文本框中
+                    //show.append("\n" + msg.obj.toString());
+                }
+            }
+        };
 
 		TabHost tabHost = getTabHost();
 		LayoutInflater.from(this).inflate(R.layout.main2, tabHost.getTabContentView(),true);
@@ -42,6 +74,7 @@ public class OsangProject2 extends TabActivity {
 				.setIndicator("交流"/*,getResources().getDrawable(R.drawable.i2)*/)
 				.setContent(R.id.commnunication));
 		
+		//签到*******************************************************************
 		textView_id = (TextView)findViewById(R.id.textView_id);
 		textView_wlanName = (TextView)findViewById(R.id.textView_wlanName);
 		textView_className = (TextView)findViewById(R.id.textView_className);
@@ -59,6 +92,38 @@ public class OsangProject2 extends TabActivity {
 	    textView_classTime.setText(arr_classInfo[6]);
 	    IP = arr_classInfo[7];
 	    
+	    
+	    Button button_login = (Button)findViewById(R.id.btn_login);
+	    button_login.setOnClickListener(new OnClickListener()
+        {
+        public void onClick(View v)
+            {
+            try
+            {
+               s = new Socket(IP,30000);
+               // 客户端启动ClientThread线程不断读取来自服务器的数据
+               new Thread(new ClientThread(s, handler)).start();
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            try
+            {   // 将用户在文本框内输入的内容写入网络
+                
+                os=s.getOutputStream();
+                os.write((arr_classInfo[0]+"\r\n").getBytes("utf-8"));
+                
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            }
+        });
+
+	    //课堂交流*******************************************************************	    
 		permission = (TextView)findViewById(R.id.permission);
 		permission.setTextColor(Color.RED);
 		

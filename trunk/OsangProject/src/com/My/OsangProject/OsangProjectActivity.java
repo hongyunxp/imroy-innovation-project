@@ -61,7 +61,7 @@ public class OsangProjectActivity extends Activity {
         confirm = (Button)findViewById(R.id.button_confirm);
         check_wlan = (Button)findViewById(R.id.button_checkWlan);
         exit = (Button)findViewById(R.id.button_exit);
-        
+
         final android.app.AlertDialog.Builder prepare = new AlertDialog.Builder(this);
 
        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -101,10 +101,10 @@ public class OsangProjectActivity extends Activity {
 				prepare.setView(prepare_Layout);
 				myPrepare = prepare.create();
 				myPrepare.show();
-
 				ReceiveUDP_THREAD rTask = null;
+                
 				rTask = new ReceiveUDP_THREAD();
-	            rTask.execute();  
+	            rTask.execute();
 				
 			}
 			}
@@ -127,6 +127,7 @@ public class OsangProjectActivity extends Activity {
     public void onResume(){
 
         super.onResume();
+        
         id=null;
         wlan_name=null;
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -142,8 +143,6 @@ public class OsangProjectActivity extends Activity {
         else
         	name_wlan.setText("当前尚未连入WLAN");
         }
-        //name_wlan.setText(udp);
-    	
     }
     
 	@Override
@@ -206,6 +205,7 @@ public class OsangProjectActivity extends Activity {
 			             intent.putExtras(class_infor);
 			             intent.setClass(OsangProjectActivity.this, OsangProject2.class);
 			             startActivity(intent);
+			             OsangProjectActivity.this.finish();
 
 			        }
 			        catch (SocketException e)
@@ -222,8 +222,6 @@ public class OsangProjectActivity extends Activity {
 		
         protected void onProgressUpdate(Integer... progress) {  
              super.onProgressUpdate(progress);
-
-             
         }  
 		
 

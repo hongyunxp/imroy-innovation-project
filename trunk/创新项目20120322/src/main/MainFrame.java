@@ -64,7 +64,6 @@ public class MainFrame extends JFrame {
 	public static ArrayList<Studentinfor> vacate = new ArrayList<Studentinfor>();
 
 	JMenu menu = new JMenu("考勤控制");
-	JMenuItem menuItem = new JMenuItem("开启手机端签到");
 	JMenuItem menuItem_1 = new JMenuItem("关闭手机端签到");
 	JMenuItem menuItem_2 = new JMenuItem("保存本节课考勤信息");
 	static JMenu menu_1 = new JMenu("课堂交流");
@@ -149,21 +148,10 @@ public class MainFrame extends JFrame {
 		setJMenuBar(menuBar);
 
 		menuBar.add(menu);
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AttThread attthread = new AttThread();
-				attthread.setDaemon(true);
-				attthread.start();
-				menuItem.setEnabled(false);
-				show.setText("已开启手机签到功能……");
-			}
-		});
-
-		menu.add(menuItem);
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 	/*		 关闭手机签到接口，收回签到权限*/
-				menuItem.setEnabled(true);
+
 				show.setText("已关闭手机签到功能……");
 				
 			}

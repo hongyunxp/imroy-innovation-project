@@ -29,28 +29,28 @@ public class Question extends JFrame {
 
 	private JPanel contentPane;
 	public static JTextArea show = new JTextArea();
-	
+	QuestionThread thread = new QuestionThread();
 	/**
 	 * Create the frame.
 	 */
 	public Question() {
+	    setResizable(false);
 		setTitle("创新项目-课堂交流");
 		 this.addWindowListener(new WindowAdapter(){
              public void windowClosing(WindowEvent e){
+                 thread.stop();
              MainFrame.menu_1.setVisible(true);
              }
      });
-			
-		setResizable(false);
 		setBounds(100, 100, 626, 435);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu menu = new JMenu("\u9009\u9879");
+		JMenu menu = new JMenu("选项");
 		menuBar.add(menu);
 		
-		JMenu mnNewMenu = new JMenu("\u5E2E\u52A9");
+		JMenu mnNewMenu = new JMenu("帮助");
 		menuBar.add(mnNewMenu);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,58 +69,58 @@ public class Question extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		QuestionThread thread = new QuestionThread();
+		
 		thread.start();
 		
-		final JButton btnNewButton = new JButton("开始");
+		final JButton btnNewButton = new JButton("开启交流功能");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//发送接收许可；建立接收线程；接收信息并展示
 				for(ServerThread s:Socketinitialize.allthread){
 					try {
-						s.givetoclient("#开启课堂交流");
+						s.givetoclient("comON");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				show.append("已开启课堂交流\n");
+				show.append("----------------------已开启课堂交流\n");
 				btnNewButton.setEnabled(false);
 								
 			}
 		});
 		
-		JButton button = new JButton("结束");
+		JButton button = new JButton("关闭交流功能");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//发送关闭许可；
 				for(ServerThread s:Socketinitialize.allthread){
 					try {
-						s.givetoclient("#关闭课堂交流");
+						s.givetoclient("comOFF");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				show.append("已关闭课堂交流\n");
+				show.append("----------------------已关闭课堂交流\n");
 				btnNewButton.setEnabled(true);
 			}
 		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(94)
-					.addComponent(btnNewButton)
-					.addGap(290)
-					.addComponent(button)
-					.addGap(112))
+		    gl_panel.createParallelGroup(Alignment.LEADING)
+		        .addGroup(gl_panel.createSequentialGroup()
+		            .addGap(94)
+		            .addComponent(btnNewButton)
+		            .addGap(214)
+		            .addComponent(button)
+		            .addGap(92))
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-					.addComponent(btnNewButton)
-					.addComponent(button))
+		    gl_panel.createParallelGroup(Alignment.LEADING)
+		        .addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+		            .addComponent(btnNewButton)
+		            .addComponent(button))
 		);
 		panel.setLayout(gl_panel);
 		

@@ -38,7 +38,7 @@ public class ServerThread extends Thread  {
 	public void run() {
 
 		try {
-		  givetoclient("已建立连接\r\n");
+		  givetoclient("comOFF");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -49,7 +49,7 @@ public class ServerThread extends Thread  {
 				boolean cmsg_creat_finish=false;
 				for(int i=0;i<Socketinitialize.allmsg.size();i++){
 					if(Socketinitialize.allmsg.get(i).getid().equals(content)){
-				    Socketinitialize.allmsg.remove(i);
+				    Socketinitialize.allmsg.remove(i);//如果已存在该id的clientMsg,则删除原cmsg,建立新的
 					msg = new clientMsg(content);
 					Socketinitialize.allmsg.add(msg);
 					cmsg_creat_finish=true;
@@ -69,6 +69,31 @@ public class ServerThread extends Thread  {
 			e.printStackTrace();
 		}
 		
+        if(Socketinitialize.allmsg.size()!=0){
+            for(clientMsg msg:Socketinitialize.allmsg){
+                for(int i=0;i<MainFrame.inforshow.getRowCount();i++){
+                    if(msg.id.equals(MainFrame.inforshow.getValueAt(i,1).toString())){
+                        String[]tem={
+                                "●已到",
+                                MainFrame.inforshow.getValueAt(i,1).toString(),
+                                MainFrame.inforshow.getValueAt(i,2).toString(),
+                                MainFrame.inforshow.getValueAt(i,3).toString(),
+                                MainFrame.inforshow.getValueAt(i,4).toString(),
+                        };
+                        MainFrame.att_tableModel.addRow(tem);
+                        MainFrame.unatt_tableModel.removeRow(i);
+                        for(Studentinfor stuinfor:MainFrame.allstudents){
+                            if(stuinfor.id.equals(MainFrame.inforshow.getValueAt(i,1).toString())){
+                                stuinfor.att_time++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            else
+                System.out.println("此连接为非法连接");
+		
 		
 		try {
 			while((content=br.readLine())!=null){
@@ -80,7 +105,6 @@ public class ServerThread extends Thread  {
 			e.printStackTrace();
 		}
 	}
-
 
     public void givetoclient(String content) throws UnsupportedEncodingException, IOException
     {

@@ -16,16 +16,15 @@ public class QuestionThread extends Thread {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-   Question.show.setText("准备开始进行发言......\r\n");
+
+   Question.show.setText("----------------------准备开始进行发言\r\n");
    if(Socketinitialize.allthread.size()!=0){
    while(true){
-	   System.out.println(Socketinitialize.allmsg.size());
+	   //System.out.println(Socketinitialize.allmsg.size());
 	  for(clientMsg msg:Socketinitialize.allmsg){
 		  if(msg.havenew){
-			  
 		  Question.show.append(msg.getid()+":\r\n");
 		  Question.show.append(msg.sendNews()+"\r\n");
-		  Question.show.append("\r\n");
 		  Question.show.append("\r\n");
 		  
 		  }
@@ -34,7 +33,7 @@ public class QuestionThread extends Thread {
   }
    
    
-else {Question.show.append("暂时没有连接\n");
+else {Question.show.append("----------------------暂时没有连接\n");
 }
    
    

@@ -74,8 +74,9 @@
 	android:layout_y="300dp"
 />
 <Button
-	android:id="@+id/btn_return"
-	android:text="　返回 　"
+	android:id="@+id/btn_exit"
+	android:text=" 退出课堂 "
+	android:enabled="false"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:layout_marginLeft="80dip"
@@ -152,7 +153,7 @@
     android:id="@+id/permission"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="交流功能已关闭，请等待……"
+    android:text="-交流功能已关闭，请等待-"
     android:layout_gravity="center"
     ></TextView>
 <TextView
@@ -161,14 +162,14 @@
     android:layout_gravity="center"
     ></TextView>
 <Button
-	android:id="@+id/send"
+	android:id="@+id/btn_send"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:text="　发送　"
 	android:layout_gravity="right"
 	/>
 <EditText
-	android:id="@+id/show"
+	android:id="@+id/editView_show"
 	android:layout_width="fill_parent"
 	android:layout_height="220dp"
 	android:maxLines="10"
@@ -177,7 +178,7 @@
 	
 	android:textSize="18sp" />
 <TextView
-    android:id="@+id/tip"
+    android:id="@+id/textView_tip"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="（每次发言内容请控制在50字以内）"

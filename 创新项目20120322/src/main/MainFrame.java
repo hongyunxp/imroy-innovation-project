@@ -28,6 +28,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.net.InetAddress;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -53,6 +54,7 @@ import main.Login.Infor_show;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class MainFrame extends JFrame {
 
@@ -65,7 +67,7 @@ public class MainFrame extends JFrame {
 
 	JMenu menu = new JMenu("考勤控制");
 	JMenuItem menuItem_1 = new JMenuItem("关闭手机端签到");
-	JMenuItem menuItem_2 = new JMenuItem("保存本节课考勤信息");
+	static JMenuItem menuItem_2 = new JMenuItem("保存本节课考勤信息");
 	static JMenu menu_1 = new JMenu("课堂交流");
 	JMenu menu_2 = new JMenu("投票统计");
 	JMenu menu_3 = new JMenu("当堂测试");
@@ -85,61 +87,60 @@ public class MainFrame extends JFrame {
 	public static DefaultTableModel unatt_tableModel = null;
 	public static DefaultTableModel att_tableModel = null;
 	public static DefaultTableModel vocate_tableModel = null;
+	public static boolean hasSaved=true;
 	private int count;
 	private String UDPMsg;
 	
-	private static JTextPane show = new JTextPane();
+	static JTextPane show = new JTextPane();
 
 	/**
 	 * Create the frame.
 	 * 
 	 * @throws IOException
 	 */
-	public MainFrame(String s) throws IOException {
-		// ***************当该窗口关闭时保存学生、课堂信息*******************************
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-
-			}
-		});
+	public MainFrame(final String s) throws IOException {
+		
 		/*
 		 * 开始初始化各项信息（学生信息、通信连接）
 		 */
+		
 		inforinitialize(s);
+		show.setFont(new Font("宋体", Font.PLAIN, 15));
+		show.setForeground(Color.BLACK);
 		show.setText("正在初始化学生信息……");
 		socketinitialize();
 		show.setText("正在初始化网络连接……");
 		
 		BufferedReader br = new BufferedReader(new FileReader(s+".txt"));
-        String[] tem_str;
-        tem_str = br.readLine().split(",");
-        String[] infor = {
-                tem_str[1],
-                tem_str[2],
-                tem_str[3],
-                tem_str[4],
-                tem_str[5],
-                tem_str[6],
-                tem_str[7]
+        final String[] tem_str;
+        final String temClassInfor=br.readLine();
+        tem_str = temClassInfor.split(",");
+        final String[] classInfor = {
+                tem_str[1],//0 claName
+                tem_str[2],//1 category
+                tem_str[3],//2 stuNum
+                tem_str[4],//3 credit
+                tem_str[5],//4 claNum
+                tem_str[6],//5 claOnNum
+                tem_str[7] //6 institute
         };
-        
+        final int i = Integer.valueOf(classInfor[5])+1;
+        System.out.println(i);
         br.close();
         
         InetAddress addr = InetAddress.getLocalHost();
         String ip = addr.getHostAddress();
         System.out.println(ip);
         
-		UDPMsg = infor[0]+"#"+Infor_show.infor.getname()+"#"+infor[1]
-		        +"#"+infor[3]+"#"+infor[4]+"#"+ip;
-		//System.out.println(UDPMsg);
-		
+		UDPMsg = classInfor[0]+"#"+Infor_show.infor.getname()+"#"+classInfor[1]
+		        +"#"+classInfor[3]+"#"+classInfor[4]+"#"+ip;
 		new UDPThread(ip).start();
 
-		/*
+		/**
 		 * 开始初始化UI界面、动作
 		 */
 
-		setTitle("创新项目-电子课堂辅助系统");
+		setTitle("课堂交流-创新项目-电子课堂辅助系统");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1025, 646);
 		setResizable(false);
@@ -150,13 +151,52 @@ public class MainFrame extends JFrame {
 		menuBar.add(menu);
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-	/*		 关闭手机签到接口，收回签到权限*/
-
-				show.setText("已关闭手机签到功能……");
-				
+	/**
+	 * 关闭手机签到接口，收回签到权限
+	 **/
+			    show.setText("已关闭手机签到功能……");
 			}
 		});
 		menu.add(menuItem_1);
+		menuItem_2.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) { 
+		        System.out.println("正在保存");
+		        BufferedWriter bw;
+                try {
+                    bw = new BufferedWriter(new FileWriter(s+".txt"));
+                    bw.write("#,"+classInfor[0]+","
+                            +classInfor[1]+","
+                            +classInfor[2]+","
+                            +classInfor[3]+","
+                            +classInfor[4]+","
+                            +i+","
+                            +classInfor[6]                            
+                            );
+                    DecimalFormat df=new DecimalFormat("0.00");
+                    
+                    for(Studentinfor s:allstudents){
+                        bw.newLine();
+                        bw.write(
+                                s.getid()+","
+                        +s.getname()+","
+                        +s.getmajor()+","
+                        +df.format((float)s.getatt_time()/i)+","
+                        +s.getatt_time()
+                                );
+                        System.out.println(df.format((float)s.getatt_time()/i));
+                    }
+                    bw.close();
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }  
+                menuItem_2.setEnabled(false);
+                hasSaved=true;
+                show.setForeground(Color.BLACK);
+                show.setText("课堂考勤信息已保存");
+		    }
+		});
+		menuItem_2.setEnabled(false);
 		menu.add(menuItem_2);
 
 		menu_1.addMouseListener(new MouseAdapter() {
@@ -168,6 +208,13 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menuBar.add(menu_1);
+		menu_2.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        Vote frame = new Vote();
+                frame.setVisible(true);
+		    }
+		});
 		menuBar.add(menu_2);
 		menuBar.add(menu_3);
 		menuBar.add(menu_4);
@@ -324,6 +371,10 @@ public class MainFrame extends JFrame {
 				}
 				att_tableModel.addRow(tem);
 				unatt_tableModel.removeRow(inforshow.getSelectedRow());
+				menuItem_2.setEnabled(true);
+				hasSaved=false;
+				show.setForeground(Color.RED);
+				show.setText("课堂考勤信息发生改变，请注意保存");
 			}
 		});
 
@@ -348,6 +399,10 @@ public class MainFrame extends JFrame {
 				}
 				late_tableModel.addRow(tem);
 				unatt_tableModel.removeRow(inforshow.getSelectedRow());
+				menuItem_2.setEnabled(true);
+				hasSaved=false;
+				show.setForeground(Color.RED);
+				show.setText("课堂考勤信息发生改变，请注意保存");
 			}
 		});
 
@@ -365,8 +420,18 @@ public class MainFrame extends JFrame {
 						att_inforshow.getValueAt(
 								att_inforshow.getSelectedRow(), 4).toString(), };
 
+                for (Studentinfor stuinfor : allstudents) {
+                    if (stuinfor.id.equals(inforshow.getValueAt(
+                            att_inforshow.getSelectedRow(), 1).toString())) {
+                        stuinfor.att_time--;
+                    }
+                }
 				unatt_tableModel.addRow(tem);
 				att_tableModel.removeRow(att_inforshow.getSelectedRow());
+				menuItem_2.setEnabled(true);
+				hasSaved=false;
+				show.setForeground(Color.RED);
+				show.setText("课堂考勤信息发生改变，请注意保存");
 			}
 		});
 
@@ -391,10 +456,52 @@ public class MainFrame extends JFrame {
 				}
 				vocate_tableModel.addRow(tem);
 				unatt_tableModel.removeRow(inforshow.getSelectedRow());
+				menuItem_2.setEnabled(true);
+				hasSaved=false;
+				show.setForeground(Color.RED);
+				show.setText("课堂考勤信息发生改变，请注意保存");
 			}
 		});
 
 		/**************************** 添加关于Jtable的按钮事件监听器 ***************************/
+		
+		// ***************当该窗口关闭时保存学生、课堂信息*******************************
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                if(!hasSaved){
+                    BufferedWriter bw;
+                    try {
+                        bw = new BufferedWriter(new FileWriter(s+".txt"));
+                        bw.write("#,"+classInfor[0]+","
+                                +classInfor[1]+","
+                                +classInfor[2]+","
+                                +classInfor[3]+","
+                                +classInfor[4]+","
+                                +i+","
+                                +classInfor[6]                            
+                                );
+                        DecimalFormat df=new DecimalFormat("0.00");
+                        
+                        for(Studentinfor s:allstudents){
+                            bw.newLine();
+                            bw.write(
+                                    s.getid()+","
+                            +s.getname()+","
+                            +s.getmajor()+","
+                            +df.format((float)s.getatt_time()/i)+","
+                            +s.getatt_time()
+                                    );
+                            System.out.println(df.format((float)s.getatt_time()/i));
+                        }
+                        bw.close();
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }  
+                }
+                
+            }
+        });
 	}
 
 	public void inforinitialize(String classname) throws IOException {
@@ -422,4 +529,5 @@ public class MainFrame extends JFrame {
 		sktinitialize.setDaemon(true);
 		sktinitialize.start();
 	}
+	
 }

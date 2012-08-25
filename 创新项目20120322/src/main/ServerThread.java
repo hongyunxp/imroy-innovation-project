@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.io.*;
 import java.net.*;
 
@@ -87,6 +88,9 @@ public class ServerThread extends Thread  {
                                 stuinfor.att_time++;
                             }
                         }
+                        MainFrame.show.setForeground(Color.RED);
+                        MainFrame.show.setText("课堂考勤信息发生改变，请注意保存");
+                        MainFrame.menuItem_2.setEnabled(true);
                     }
                 }
             }

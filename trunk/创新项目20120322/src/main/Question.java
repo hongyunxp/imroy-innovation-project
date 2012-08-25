@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.annotation.processing.Messager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -28,6 +29,7 @@ import javax.swing.ImageIcon;
 public class Question extends JFrame {
 
 	private JPanel contentPane;
+	static JScrollBar bar;
 	public static JTextArea show = new JTextArea();
 	QuestionThread thread = new QuestionThread();
 	/**
@@ -63,6 +65,8 @@ public class Question extends JFrame {
 		show.setBounds(82, 35, 33, 69);
 		
 		JScrollPane js = new JScrollPane(show);
+		bar=js.getVerticalScrollBar();
+	    
 				
 		contentPane.add(js);
 		

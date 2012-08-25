@@ -82,7 +82,7 @@ public class Class_show extends JDialog {
 		label_4.setBounds(197, 10, 68, 22);
 		getContentPane().add(label_4);
 		
-		JLabel label_5 = new JLabel("上课次数：");
+		JLabel label_5 = new JLabel("完成课时：");
 		label_5.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		label_5.setBounds(197, 42, 68, 22);
 		getContentPane().add(label_5);

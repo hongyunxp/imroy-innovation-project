@@ -72,8 +72,7 @@ public class Question extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
-		
-		
+				
 		thread.start();
 		
 		final JButton btnNewButton = new JButton("开启交流功能");

@@ -30,8 +30,6 @@ public class QuestionThread extends Thread {
 		  Question.show.append(msg.sendNews()+"\r\n");
 		  Question.show.append("\r\n");
 		  Question.show.setCaretPosition( Question.show.getText().length());
-
-		  
 		  }
 	   }
    }
@@ -43,17 +41,7 @@ else {Question.show.append("----------------------暂时没有连接\n");
    
    
 }
-	/*public static String datetime(){
-	        SimpleDateFormat ft=null;
-	        Date date=null;
-	        Calendar cl= Calendar.getInstance();
-	        cl.setTime(new java.util.Date());
-	        date=(Date) cl.getTime();
-	       
-	        ft=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	        String dateTime = ft.format(date);
-	        return dateTime;      
-	}*/
+
 
 }
 

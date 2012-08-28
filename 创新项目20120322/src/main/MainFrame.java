@@ -125,12 +125,11 @@ public class MainFrame extends JFrame {
                 tem_str[7] //6 institute
         };
         final int i = Integer.valueOf(classInfor[5])+1;
-        System.out.println(i);
         br.close();
         
         InetAddress addr = InetAddress.getLocalHost();
         String ip = addr.getHostAddress();
-        System.out.println(ip);
+        System.out.println("±¾»úipµØÖ·:"+ip);
         
 		UDPMsg = classInfor[0]+"#"+Infor_show.infor.getname()+"#"+classInfor[1]
 		        +"#"+classInfor[3]+"#"+classInfor[4]+"#"+ip;

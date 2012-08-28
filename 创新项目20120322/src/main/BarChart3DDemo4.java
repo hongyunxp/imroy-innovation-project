@@ -43,12 +43,12 @@ public class BarChart3DDemo4 extends ApplicationFrame
   private static CategoryDataset createDataset()
   {
     DefaultCategoryDataset localDefaultCategoryDataset = new DefaultCategoryDataset();
-    localDefaultCategoryDataset.addValue(0.77D, "Series 1", "Robert");
-    localDefaultCategoryDataset.addValue(0.93D, "Series 1", "Mary");
-    localDefaultCategoryDataset.addValue(0.59D, "Series 1", "John");
-    localDefaultCategoryDataset.addValue(0.75D, "Series 1", "Ellen");
-    localDefaultCategoryDataset.addValue(0.63D, "Series 1", "Jack");
-    localDefaultCategoryDataset.addValue(0.95D, "Series 1", "David");
+    localDefaultCategoryDataset.addValue(0.999, "2", "Robert");
+    localDefaultCategoryDataset.addValue(0.93, "Series 1", "Mary");
+    localDefaultCategoryDataset.addValue(0.59, "Series 1", "John");
+    localDefaultCategoryDataset.addValue(0.75, "Series 1", "Ellen");
+    localDefaultCategoryDataset.addValue(0.63, "Series 1", "Jack");
+    localDefaultCategoryDataset.addValue(0.95, "Series 1", "David");
     localDefaultCategoryDataset.addValue(0.71D, "Series 1", "Mark");
     localDefaultCategoryDataset.addValue(0.65D, "Series 1", "Andy");
     return localDefaultCategoryDataset;
@@ -86,14 +86,14 @@ public class BarChart3DDemo4 extends ApplicationFrame
     return new ChartPanel(localJFreeChart);
   }
 
-/*  public static void main(String[] paramArrayOfString)
+  public static void main(String[] paramArrayOfString)
   {
     BarChart3DDemo4 localBarChart3DDemo4 = new BarChart3DDemo4("JFreeChart: BarChart3DDemo4.java");
     localBarChart3DDemo4.pack();
     RefineryUtilities.centerFrameOnScreen(localBarChart3DDemo4);
     localBarChart3DDemo4.setVisible(true);
   }
-*/
+
   static class CustomBarRenderer3D extends BarRenderer3D
   {
     public Paint getItemPaint(int paramInt1, int paramInt2)

@@ -101,9 +101,13 @@ public class ServerThread extends Thread  {
 		
 		try {
 			while((content=br.readLine())!=null){
-				this.msg.getNews(content);
-				System.out.println(content);
-			}
+			    if(content.startsWith("vote"))
+			        this.msg.getNewVote(content.substring(4));
+			        else{
+			            this.msg.getNews(content);
+		                System.out.println(content);
+		                }
+			    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

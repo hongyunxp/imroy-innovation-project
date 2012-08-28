@@ -31,7 +31,7 @@ public class Infor_show extends JDialog {
 		this.infor=infor;
 		
 		setResizable(false);
-		setBounds(100, 100, 341, 216);
+		setBounds(400,300, 341, 216);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

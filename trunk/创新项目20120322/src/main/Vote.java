@@ -185,17 +185,6 @@ public class Vote extends JFrame {
 		btn_ON.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
-		        checkBox_two.setSelected(false);
-		        checkBox_three.setSelected(false);
-                checkBox_four.setSelected(false);
-                checkBox_five.setSelected(false);
-                radioButton_isMultiple.setSelected(false);
-                rdbtnNewRadioButton.setSelected(false);
-		        btn_ON.setEnabled(false);
-		        isCollecting=true;
-		        temVoteThread = new VoteThread();
-		        temVoteThread.start();	        
-		        
 	              //发送开启投票统计权限
                 for(ServerThread s:Socketinitialize.allthread){
                     try {
@@ -208,7 +197,16 @@ public class Vote extends JFrame {
                         e1.printStackTrace();
                     }
                 }
-		        
+                checkBox_two.setSelected(false);
+                checkBox_three.setSelected(false);
+                checkBox_four.setSelected(false);
+                checkBox_five.setSelected(false);
+                radioButton_isMultiple.setSelected(false);
+                rdbtnNewRadioButton.setSelected(false);
+                btn_ON.setEnabled(false);
+                isCollecting=true;
+                temVoteThread = new VoteThread();
+                temVoteThread.start();
 		        btn_OFF.setEnabled(true);
 		        show.setText("已开启投票统计功能（"+intChoiceNum+"选项|"+rdbtnNewRadioButton.getText()+"|"
 		        +rdbtnNewRadioButton.getText()+"），正在回收投票信息，请稍候……");

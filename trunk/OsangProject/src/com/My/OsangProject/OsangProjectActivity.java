@@ -19,6 +19,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -145,7 +146,7 @@ public class OsangProjectActivity extends Activity {
         }
     }
     
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		menu.add(0, 0, 0, "关于");
@@ -174,10 +175,9 @@ public class OsangProjectActivity extends Activity {
 		}
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 	
 	public class ReceiveUDP_THREAD extends AsyncTask{
-
 
 		@Override
 		protected Object doInBackground(Object... params) {
@@ -226,6 +226,18 @@ public class OsangProjectActivity extends Activity {
 		
 
 	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    /**
+	     * 屏蔽返回实体键
+	     */
+	            switch (keyCode) {
+	                case KeyEvent.KEYCODE_ENTER:
+
+	                    
+	                return true;
+	            }
+	            return super.onKeyDown(keyCode, event);
+	        }
 	
     
 }

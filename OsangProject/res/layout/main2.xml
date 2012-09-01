@@ -1,0 +1,278 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+<RelativeLayout
+	android:id="@+id/att"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+
+
+<TextView
+	android:id="@+id/id"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="60dp"
+	android:layout_alignParentLeft="true"
+	android:text="        学号："
+	android:textSize="16sp"
+	android:textStyle="bold"
+ />
+<TextView
+	android:id="@+id/wifi"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_below="@+id/id"
+	android:layout_alignParentLeft="true"
+	android:text="        当前wifi:"
+	android:textSize="16sp"
+	android:textStyle="bold"
+ />
+
+<TextView
+	android:id="@+id/class_name"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_above="@+id/teacher_name"	
+	android:layout_alignLeft="@+id/teacher_name"
+	android:text="课程名称："
+	android:textSize="16sp"
+	android:textStyle="bold"
+ />
+<TextView
+	android:id="@+id/teacher_name"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="任课教师："
+	android:layout_above="@+id/class_category"
+	android:layout_toRightOf="@+id/wifi"
+	android:textSize="16sp"
+	android:textStyle="bold"
+	
+ />
+
+<TextView
+	android:id="@+id/class_category"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_above="@+id/credit"
+	android:layout_alignLeft="@+id/teacher_name"
+	android:text="课程类别："
+	android:textSize="16sp"
+	android:textStyle="bold"
+ />
+<TextView
+	android:id="@+id/credit"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_centerVertical="true"
+	android:layout_alignLeft="@+id/class_category"
+	android:text="学分："
+	android:textSize="16sp"
+	android:textStyle="bold"
+ />
+<TextView
+	android:id="@+id/class_time"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_below="@+id/credit"
+	android:layout_alignLeft="@+id/credit"
+	android:text="学时："
+	android:textSize="16sp"
+	android:textStyle="bold"
+/>
+<Button
+	android:id="@+id/btn_login"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/btn_exit"
+	android:text=" 进入课堂 "
+	android:textSize="18sp"
+	android:textStyle="bold"
+/>
+<Button
+	android:id="@+id/btn_exit"
+	android:text=" 退出课堂 "
+	android:enabled="false"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:textSize="18sp"
+    android:textStyle="bold"
+
+/>
+<TextView
+	android:id="@+id/textView_id"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/id"
+	android:layout_marginTop="60dp"
+	android:text=""
+	android:textSize="16sp"
+/>
+<TextView
+	android:id="@+id/textView_wlanName"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/wifi"
+	android:layout_below="@+id/textView_id"
+	android:text=""
+	android:textSize="16sp"/>
+<TextView
+	android:id="@+id/textView_className"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/class_name"
+	android:layout_above="@+id/textView_teacherName"
+	android:text=""
+	android:textSize="16sp" />
+<TextView
+	android:id="@+id/textView_teacherName"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/teacher_name"
+	android:layout_above="@+id/textView_classCategory"
+	android:text=""
+	android:textSize="16sp" />
+<TextView
+	android:id="@+id/textView_classCategory"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/class_category"
+	android:layout_above="@+id/textView_credit"
+	android:text=""
+	android:textSize="16sp"/>
+<TextView
+	android:id="@+id/textView_credit"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/credit"
+	android:layout_centerVertical="true"
+	android:text=""
+	android:textSize="16sp"/>
+<TextView
+	android:id="@+id/textView_classTime"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_toRightOf="@+id/class_time"
+	android:layout_below="@+id/textView_credit"
+	android:text=""
+	android:textSize="16sp"/>
+
+</RelativeLayout>
+    
+<LinearLayout
+	android:id="@+id/commnunication"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView
+    android:id="@+id/permission"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="-交流功能已关闭，请等待-"
+    android:textSize="16sp"
+    android:layout_gravity="center"
+    ></TextView>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    ></TextView>
+<Button
+	android:id="@+id/btn_send"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="　提交　"
+	android:layout_gravity="right"
+	/>
+<EditText
+	android:id="@+id/editView_show"
+	android:layout_width="fill_parent"
+	android:layout_height="220dp"
+	android:maxLines="10"
+	android:gravity="top"
+	android:shadowRadius="3.0"
+	
+	android:textSize="18sp" />
+<TextView
+    android:id="@+id/textView_tip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="（每次发言内容请控制在50字以内）"
+    android:layout_gravity="left"
+    ></TextView>
+</LinearLayout>
+
+<RelativeLayout
+    android:id="@+id/relativeLayout_vote"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<TextView
+	android:id="@+id/textView_votePermission"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="-投票功能已关闭，请等待-"
+	android:textSize="16sp"
+	android:gravity="center"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true" />
+	
+	<TextView
+	android:id="@+id/textView_empty"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_below="@+id/textView_votePermission"/>
+	
+	<Button
+	android:id="@+id/button_voteSend"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:textSize="18sp"
+	android:textStyle="bold"
+	android:text="　提交　"
+	android:layout_below="@+id/textView_empty"
+	android:layout_alignParentRight="true"/>
+	
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/button_voteSend">
+	    
+	    <CheckBox android:id="@+id/checkBox_a"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="选项-A"/>
+	    <CheckBox android:id="@+id/checkBox_b"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="选项-B"/>
+	    <CheckBox android:id="@+id/checkBox_c"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="选项-C"/>
+	    <CheckBox android:id="@+id/checkBox_d"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="选项-D"/>
+	    <CheckBox android:id="@+id/checkBox_e"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="选项-E"/>
+	    <CheckBox android:id="@+id/checkBox_waiver"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="弃权"/>
+	        </LinearLayout>	
+	
+</RelativeLayout>
+　
+
+	</TabHost>

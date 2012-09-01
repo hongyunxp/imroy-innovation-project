@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -43,7 +45,6 @@ public class OsangProject2 extends TabActivity {
 	
 	int intChoiceNum;
 	boolean isMultiChoice,isWaiverable;
-	
     OutputStream os;
     Handler handler;
     Socket s;
@@ -156,20 +157,132 @@ public class OsangProject2 extends TabActivity {
             }
         });
 //投票统计*******************************************************************
+		//*******************************************************************
+	    btn_voteSend = (Button)findViewById(R.id.button_voteSend);
+	    
+	    textView_votePermission = (TextView)findViewById(R.id.textView_votePermission);
+	    
 		checkBox_a = (CheckBox)findViewById(R.id.checkBox_a);
 		checkBox_b = (CheckBox)findViewById(R.id.checkBox_b);
 		checkBox_c = (CheckBox)findViewById(R.id.checkBox_c);
 		checkBox_d = (CheckBox)findViewById(R.id.checkBox_d);
 		checkBox_e = (CheckBox)findViewById(R.id.checkBox_e);
 		checkBox_waiver = (CheckBox)findViewById(R.id.checkBox_waiver);
-		checkBox_c.setVisibility(1);
-        checkBox_d.setVisibility(1);
-        checkBox_e.setVisibility(1);
-		btn_voteSend = (Button)findViewById(R.id.button_voteSend);
+		
 		btn_voteSend.setEnabled(false);
-		textView_votePermission = (TextView)findViewById(R.id.textView_votePermission);
+		
 		textView_votePermission.setTextColor(Color.RED);
 		
+        checkBox_a.setEnabled(false);
+        checkBox_b.setEnabled(false);
+        checkBox_c.setEnabled(false);
+        checkBox_d.setEnabled(false);
+        checkBox_e.setEnabled(false);
+        checkBox_waiver.setEnabled(false);
+        checkBox_waiver.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked) {
+                if(isChecked){
+                    checkBox_a.setChecked(false);
+                    checkBox_a.setEnabled(false);
+                    checkBox_b.setChecked(false);
+                    checkBox_b.setEnabled(false);
+                    checkBox_c.setChecked(false);
+                    checkBox_c.setEnabled(false);
+                    checkBox_d.setChecked(false);
+                    checkBox_d.setEnabled(false);
+                    checkBox_e.setChecked(false);
+                    checkBox_e.setEnabled(false);
+                }
+                else{
+                    checkBox_a.setEnabled(true);
+                    checkBox_b.setEnabled(true);
+                    checkBox_c.setEnabled(true);
+                    checkBox_d.setEnabled(true);
+                    checkBox_e.setEnabled(true);
+                }
+            }
+        });
+
+
+		/*        /*btn_voteSend.setOnClickListener(new OnClickListener(){
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if(!strVoteContent.equals(null)){
+                    try {
+                        os=s.getOutputStream();
+                        os.write((strVoteContent+"\r\n").getBytes("utf-8"));
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    checkBox_a.setChecked(false);
+                    checkBox_a.setEnabled(false);
+                    checkBox_b.setChecked(false);
+                    checkBox_b.setEnabled(false);
+                    checkBox_c.setChecked(false);
+                    checkBox_c.setEnabled(false);
+                    checkBox_d.setChecked(false);
+                    checkBox_d.setEnabled(false);
+                    checkBox_e.setChecked(false);
+                    checkBox_e.setEnabled(false);
+                    checkBox_waiver.setChecked(false);
+                    checkBox_waiver.setEnabled(false);
+
+                    checkBox_waiver.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                        public void onCheckedChanged(CompoundButton buttonView,
+                                boolean isChecked) {
+                            if(isChecked){
+                                checkBox_a.setChecked(false);
+                                checkBox_a.setEnabled(false);
+                                checkBox_b.setChecked(false);
+                                checkBox_b.setEnabled(false);
+                                checkBox_c.setChecked(false);
+                                checkBox_c.setEnabled(false);
+                                checkBox_d.setChecked(false);
+                                checkBox_d.setEnabled(false);
+                                checkBox_e.setChecked(false);
+                                checkBox_e.setEnabled(false);
+                            }
+                            else{
+                                checkBox_a.setEnabled(true);
+                                checkBox_b.setEnabled(true);
+                                checkBox_c.setEnabled(true);
+                                checkBox_d.setEnabled(true);
+                                checkBox_e.setEnabled(true);
+                            }
+                        }
+                    });
+                }
+            }           
+        });
+                // TODO Auto-generated method stub
+                if(!strVoteContent.equals(null)){
+                    try {
+                        os=s.getOutputStream();
+                        os.write((strVoteContent+"\r\n").getBytes("utf-8"));
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    checkBox_a.setChecked(false);
+                    checkBox_a.setEnabled(false);
+                    checkBox_b.setChecked(false);
+                    checkBox_b.setEnabled(false);
+                    checkBox_c.setChecked(false);
+                    checkBox_c.setEnabled(false);
+                    checkBox_d.setChecked(false);
+                    checkBox_d.setEnabled(false);
+                    checkBox_e.setChecked(false);
+                    checkBox_e.setEnabled(false);
+                    checkBox_waiver.setChecked(false);
+                    checkBox_waiver.setEnabled(false);
+
+                    
+                }
+            }		    
+		});
+*/
 		handler = new Handler()
         {
             @Override
@@ -179,60 +292,338 @@ public class OsangProject2 extends TabActivity {
                 if (msg.what == 0x123)
                 {
                     String strMsg = msg.obj.toString();
-                    //开启交流功能
+//开启交流功能*******************************************************************************************************
                     if(strMsg.equals("comON")){
                         com_permission=true;
                         textView_comPermission.setText("-交流功能已开启，请控制每次发言内容在50字内-");
                         textView_comPermission.setTextColor(Color.GREEN);
                         btn_send.setEnabled(true);
                     }
-                    //开启投票功能
-                    //PC端发送的信息格式：voteON,选项数目,可否多选,可否弃权
+//开启投票功能*******************************************************************************************************
+                    //PC端发送的信息格式：voteON,选项数目,可否多选（false/true）,可否弃权（false/true）
                     if(strMsg.startsWith("voteON")){
-                        vote_permission=true;
+                        btn_voteSend.setEnabled(true);
+                        
                         String[] temMsg=strMsg.split(",");
                         intChoiceNum=Integer.valueOf(temMsg[1]);
                         textView_votePermission.setText("-已开启投票功能-\r\n"+intChoiceNum+"选项 "+temMsg[2]);
                         textView_votePermission.setTextColor(Color.GREEN);
-                        btn_voteSend.setEnabled(true);                       
                         
-                        if(temMsg[2].equals("可多选"))
-                            isMultiChoice=true;
-                        else isMultiChoice =false;
-                        
-                        if(temMsg[3].equals("可弃权"))
-                            isWaiverable=true;
-                        else isWaiverable=false;
                         switch(intChoiceNum){
                             case 2:
-                                checkBox_c.setVisibility(1);
-                                checkBox_d.setVisibility(1);
-                                checkBox_e.setVisibility(1);
+                                checkBox_c.setVisibility(View.GONE);
+                                checkBox_d.setVisibility(View.GONE);
+                                checkBox_e.setVisibility(View.GONE);
+                                break;
                             case 3:
-                                checkBox_d.setVisibility(1);
-                                checkBox_e.setVisibility(1);
+                                checkBox_d.setVisibility(View.GONE);
+                                checkBox_e.setVisibility(View.GONE);
+                                break;
                             case 4:
-                                checkBox_e.setVisibility(1);
+                                checkBox_e.setVisibility(View.GONE);
+                                break;
                         }
-                        if(!isWaiverable)
-                            checkBox_waiver.setVisibility(1);
+                        
+                        if(!temMsg[3].equals("可弃权"))
+                            checkBox_waiver.setVisibility(View.GONE);
+                        
+                        checkBox_a.setChecked(false);
+                        checkBox_a.setEnabled(true);
+                        checkBox_b.setChecked(false);
+                        checkBox_b.setEnabled(true);
+                        checkBox_c.setChecked(false);
+                        checkBox_c.setEnabled(true);
+                        checkBox_d.setChecked(false);
+                        checkBox_d.setEnabled(true);
+                        checkBox_e.setChecked(false);
+                        checkBox_e.setEnabled(true);
+                        checkBox_waiver.setChecked(false);
+                        checkBox_waiver.setEnabled(true);
+                        
+                        if(temMsg[2].equals("可多选")){
+                            //可多选时
+                            checkBox_a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    
+                                }
+                            });
+                            checkBox_b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    
+                                }
+                            });
+                            checkBox_c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    
+                                }
+                            });
+                            checkBox_d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    
+                                }
+                            });
+                            checkBox_e.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    
+                                }
+                            });                  
+                            btn_voteSend.setOnClickListener(new OnClickListener(){
+                                public void onClick(View v) {
+                                    if(checkBox_a.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteA"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_b.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteB"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_c.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteC"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_d.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteD"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_e.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteE"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_waiver.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteX"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(!btn_voteSend.isEnabled()){
+                                        checkBox_a.setVisibility(View.VISIBLE);
+                                        checkBox_b.setVisibility(View.VISIBLE);
+                                        checkBox_c.setVisibility(View.VISIBLE);
+                                        checkBox_d.setVisibility(View.VISIBLE);
+                                        checkBox_e.setVisibility(View.VISIBLE);
+                                        checkBox_waiver.setVisibility(View.VISIBLE);
+                                        checkBox_a.setEnabled(false);
+                                        checkBox_b.setEnabled(false);
+                                        checkBox_c.setEnabled(false);
+                                        checkBox_d.setEnabled(false);
+                                        checkBox_e.setEnabled(false);
+                                        checkBox_waiver.setEnabled(false);
+                                        checkBox_a.setChecked(false);
+                                        checkBox_b.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            //不可多选时
+                            checkBox_a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    if(isChecked){
+                                        checkBox_b.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                            checkBox_b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    if(isChecked){
+                                        checkBox_a.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                            checkBox_c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    if(isChecked){
+                                        checkBox_b.setChecked(false);
+                                        checkBox_a.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                            checkBox_d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    if(isChecked){
+                                        checkBox_b.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_a.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                            checkBox_e.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                public void onCheckedChanged(CompoundButton buttonView,
+                                        boolean isChecked) {
+                                    if(isChecked){
+                                        checkBox_b.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_a.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                            btn_voteSend.setOnClickListener(new OnClickListener(){
+                                public void onClick(View v) {
+                                    if(checkBox_a.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteA"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_b.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteB"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_c.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteC"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_d.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteD"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_e.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteE"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(checkBox_waiver.isChecked()){
+                                        btn_voteSend.setEnabled(false);
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write(("oxvoteX"+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if(!btn_voteSend.isEnabled()){
+                                        checkBox_a.setVisibility(View.VISIBLE);
+                                        checkBox_b.setVisibility(View.VISIBLE);
+                                        checkBox_c.setVisibility(View.VISIBLE);
+                                        checkBox_d.setVisibility(View.VISIBLE);
+                                        checkBox_e.setVisibility(View.VISIBLE);
+                                        checkBox_waiver.setVisibility(View.VISIBLE);
+                                        checkBox_a.setEnabled(false);
+                                        checkBox_b.setEnabled(false);
+                                        checkBox_c.setEnabled(false);
+                                        checkBox_d.setEnabled(false);
+                                        checkBox_e.setEnabled(false);
+                                        checkBox_waiver.setEnabled(false);
+                                        checkBox_a.setChecked(false);
+                                        checkBox_b.setChecked(false);
+                                        checkBox_c.setChecked(false);
+                                        checkBox_d.setChecked(false);
+                                        checkBox_e.setChecked(false);
+                                        checkBox_waiver.setChecked(false);
+                                    }
+                                }
+                            });
+                        }
                     }
-                    //开启测试功能
+//开启测试功能*******************************************************************************************************
                     if(strMsg.equals("examON")){
                         exam_permission=true;
                     }
-                    //关闭交流功能
+//关闭交流功能*******************************************************************************************************
                     if(strMsg.equals("comOFF")){
                         com_permission=false;
                         textView_comPermission.setText("-交流功能已关闭，请等待-");
                         textView_comPermission.setTextColor(Color.RED);
                         btn_send.setEnabled(false);
                     }
-                    //关闭投票功能
+//关闭投票功能*******************************************************************************************************
                     if(strMsg.equals("voteOFF")){
                         com_permission=false;
+                        textView_votePermission.setText("-投票功能已关闭");
+                        textView_votePermission.setTextColor(Color.RED);
+                        btn_voteSend.setEnabled(false);  
                     }
-                    //关闭测试功能
+//关闭测试功能*******************************************************************************************************
                     if(strMsg.equals("examOFF")){
                         com_permission=false;
                     }

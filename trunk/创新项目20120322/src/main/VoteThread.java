@@ -36,10 +36,9 @@ public class VoteThread extends Thread{
                Vote.count[5]=XCount;
                Vote.intCountAll=ACount+BCount+CCount+DCount+ECount+XCount;
                }
-
             }
         else {            
-            Vote.count[0]=5;
+            Vote.count[0]=ACount;
             Vote.count[1]=BCount;
             Vote.count[2]=CCount;
             Vote.count[3]=DCount;

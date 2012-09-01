@@ -101,8 +101,8 @@ public class ServerThread extends Thread  {
 		
 		try {
 			while((content=br.readLine())!=null){
-			    if(content.startsWith("vote"))
-			        this.msg.getNewVote(content.substring(4));
+			    if(content.startsWith("oxvote"))
+			        this.msg.getNewVote(content.substring(6));
 			        else{
 			            this.msg.getNews(content);
 		                System.out.println(content);

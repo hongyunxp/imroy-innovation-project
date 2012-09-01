@@ -54,7 +54,7 @@ public class Vote extends JFrame {
 	private JPanel contentPane;
 	JCheckBox checkBox_two,checkBox_three,checkBox_four,checkBox_five;
 	JRadioButton radioButton_isMultiple;
-	JRadioButton rdbtnNewRadioButton;
+	static JRadioButton radioButton_isWaiverable;
 	JButton btn_ON,btn_OFF;
 	ChartPanel localChartPanel;
 	VoteThread temVoteThread;
@@ -71,11 +71,14 @@ public class Vote extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+        temVoteThread = new VoteThread();
 		
 		this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
                 if(temVoteThread.isAlive())
                 temVoteThread.stop();
+                this.windowClosed(e);
             }
     });
 		
@@ -164,22 +167,21 @@ public class Vote extends JFrame {
 		            radioButton_isMultiple.setText("可多选");
 		    }
 		});
-
 		radioButton_isMultiple.setBounds(101, 60, 74, 23);
 		panel.add(radioButton_isMultiple);
 		
-	    rdbtnNewRadioButton = new JRadioButton("可弃权");
-	    rdbtnNewRadioButton.addItemListener(new ItemListener() {
+	    radioButton_isWaiverable = new JRadioButton("可弃权");
+	    radioButton_isWaiverable.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
-                if(rdbtnNewRadioButton.getText().equals("可弃权")){
-                    rdbtnNewRadioButton.setText("不可弃权");
+                if(radioButton_isWaiverable.getText().equals("可弃权")){
+                    radioButton_isWaiverable.setText("不可弃权");
                 }
                 else
-                    rdbtnNewRadioButton.setText("可弃权");
+                    radioButton_isWaiverable.setText("可弃权");
             }
         });
-	    rdbtnNewRadioButton.setBounds(177, 60, 121, 23);
-	    panel.add(rdbtnNewRadioButton);
+	    radioButton_isWaiverable.setBounds(177, 60, 121, 23);
+	    panel.add(radioButton_isWaiverable);
 		
 		btn_ON = new JButton("开启投票");
 		btn_ON.addMouseListener(new MouseAdapter() {
@@ -190,7 +192,7 @@ public class Vote extends JFrame {
                     try {
                         s.givetoclient("voteON,"+intChoiceNum+","
                     +radioButton_isMultiple.getText()+","
-                    +rdbtnNewRadioButton.getText());
+                    +radioButton_isWaiverable.getText());
                         
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
@@ -202,14 +204,14 @@ public class Vote extends JFrame {
                 checkBox_four.setSelected(false);
                 checkBox_five.setSelected(false);
                 radioButton_isMultiple.setSelected(false);
-                rdbtnNewRadioButton.setSelected(false);
+                radioButton_isWaiverable.setSelected(false);
                 btn_ON.setEnabled(false);
-                isCollecting=true;
-                temVoteThread = new VoteThread();
+                isCollecting=true;                
                 temVoteThread.start();
 		        btn_OFF.setEnabled(true);
-		        show.setText("已开启投票统计功能（"+intChoiceNum+"选项|"+rdbtnNewRadioButton.getText()+"|"
-		        +rdbtnNewRadioButton.getText()+"），正在回收投票信息，请稍候……");
+		        
+		        show.setText("已开启投票统计功能（"+intChoiceNum+"选项|"+radioButton_isMultiple.getText()+"|"
+		        +radioButton_isWaiverable.getText()+"），正在回收投票信息，请稍候……");
 		    }
 		});
 		btn_ON.setBounds(487, 11, 93, 23);
@@ -222,7 +224,6 @@ public class Vote extends JFrame {
 		    public void mouseClicked(MouseEvent e) {
 		        System.out.print(count[0]);
 		        isCollecting=false;
-		        //temVoteThread.stop();
 		        localChartPanel.setVisible(false);
 		        CategoryDataset localCategoryDataset = createNewDataset(count);
 		        JFreeChart localJFreeChart = createChart(localCategoryDataset);
@@ -266,9 +267,10 @@ public class Vote extends JFrame {
               case 2:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "C");break;
               case 3:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "D");break;
               case 4:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "E");break;
-              case 5:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "Waiver");break;
-                  }
+              }
       }
+      if(!radioButton_isWaiverable.isSelected())
+          localDefaultCategoryDataset.addValue((float)temCount[5]/intCountAll, "", "Waiver");
       
       return localDefaultCategoryDataset;
     }

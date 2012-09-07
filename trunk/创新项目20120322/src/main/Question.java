@@ -41,7 +41,7 @@ public class Question extends JFrame {
 		 this.addWindowListener(new WindowAdapter(){
              public void windowClosing(WindowEvent e){
                  thread.stop();
-             MainFrame.menu_1.setVisible(true);
+             MainFrame.menu_1.setEnabled(true);
              }
      });
 		setBounds(100, 100, 626, 435);

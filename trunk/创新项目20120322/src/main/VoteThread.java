@@ -13,38 +13,22 @@ public class VoteThread extends Thread{
             while(true){
                for(clientMsg msg:Socketinitialize.allmsg){
                    if(msg.haveNewVote){
-                       System.out.print("1");
-                       if(msg.sendVoteNew().equals("A"))
-                           ACount++;
-                       else if(msg.sendVoteNew().equals("B"))
-                           BCount++;
-                       else if(msg.sendVoteNew().equals("C"))
-                           CCount++;
-                       else if(msg.sendVoteNew().equals("D"))
-                           DCount++;
-                       else if(msg.sendVoteNew().equals("E"))
-                           ECount++;
-                       else if(msg.sendVoteNew().equals("X"))
-                           XCount++;                       
+                       if(msg.sendVoteNew().charAt(6)=='A')
+                           Vote.count[0]++;
+                       if(msg.sendVoteNew().charAt(7)=='B')
+                           Vote.count[1]++;
+                       if(msg.sendVoteNew().charAt(8)=='C')
+                           Vote.count[2]++;
+                       if(msg.sendVoteNew().charAt(9)=='D')
+                           Vote.count[3]++;
+                       if(msg.sendVoteNew().charAt(10)=='E')
+                           Vote.count[4]++;
+                       if(msg.sendVoteNew().charAt(11)=='X')
+                           Vote.count[5]++;                       
                        }
                    }
-               Vote.count[0]=ACount;
-               Vote.count[1]=BCount;
-               Vote.count[2]=CCount;
-               Vote.count[3]=DCount;
-               Vote.count[4]=ECount;
-               Vote.count[5]=XCount;
-               Vote.intCountAll=ACount+BCount+CCount+DCount+ECount+XCount;
+               Vote.intCountAll=Vote.count[0]+Vote.count[1]+Vote.count[2]+Vote.count[3]+Vote.count[4]+Vote.count[5];
                }
             }
-        else {            
-            Vote.count[0]=ACount;
-            Vote.count[1]=BCount;
-            Vote.count[2]=CCount;
-            Vote.count[3]=DCount;
-            Vote.count[4]=ECount;
-            Vote.count[5]=XCount;
-            Vote.intCountAll=ACount+BCount+CCount+DCount+ECount+XCount;
-         }
-    }
+        }
 }

@@ -79,6 +79,7 @@ public class Vote extends JFrame {
                 if(temVoteThread.isAlive())
                 temVoteThread.stop();
                 this.windowClosed(e);
+                MainFrame.menu_2.setEnabled(true);
             }
     });
 		
@@ -206,8 +207,11 @@ public class Vote extends JFrame {
                 radioButton_isMultiple.setSelected(false);
                 radioButton_isWaiverable.setSelected(false);
                 btn_ON.setEnabled(false);
-                isCollecting=true;                
+                isCollecting=true;
+                
+                if(!temVoteThread.isAlive())
                 temVoteThread.start();
+                
 		        btn_OFF.setEnabled(true);
 		        
 		        show.setText("已开启投票统计功能（"+intChoiceNum+"选项|"+radioButton_isMultiple.getText()+"|"
@@ -222,8 +226,6 @@ public class Vote extends JFrame {
 		btn_OFF.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
-		        System.out.print(count[0]);
-		        isCollecting=false;
 		        localChartPanel.setVisible(false);
 		        CategoryDataset localCategoryDataset = createNewDataset(count);
 		        JFreeChart localJFreeChart = createChart(localCategoryDataset);
@@ -235,6 +237,7 @@ public class Vote extends JFrame {
 		        contentPane.add(localChartPanel);
 		        localChartPanel.validate();
 		        show.setText("已关闭投票统计功能，本次投票统计结果如图所示");
+		        count[0]=count[1]=count[2]=count[3]=count[4]=count[5]=intCountAll=0;
 		    }
 		});
 		btn_OFF.setBounds(487, 70, 93, 23);
@@ -262,15 +265,15 @@ public class Vote extends JFrame {
       DefaultCategoryDataset localDefaultCategoryDataset = new DefaultCategoryDataset();
       for(int i =0;i<intChoiceNum;i++){
           switch(i){
-              case 0:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "A");break;
-              case 1:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "B");break;
-              case 2:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "C");break;
-              case 3:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "D");break;
-              case 4:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "E");break;
+              case 0:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "A("+temCount[i]+")");break;
+              case 1:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "B("+temCount[i]+")");break;
+              case 2:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "C("+temCount[i]+")");break;
+              case 3:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "D("+temCount[i]+")");break;
+              case 4:localDefaultCategoryDataset.addValue((float)temCount[i]/intCountAll, "", "E("+temCount[i]+")");break;
               }
       }
       if(!radioButton_isWaiverable.isSelected())
-          localDefaultCategoryDataset.addValue((float)temCount[5]/intCountAll, "", "Waiver");
+          localDefaultCategoryDataset.addValue((float)temCount[5]/intCountAll, "", "Waiver("+temCount[5]+")");
       
       return localDefaultCategoryDataset;
     }

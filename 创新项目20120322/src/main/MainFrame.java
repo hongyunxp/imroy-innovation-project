@@ -69,7 +69,7 @@ public class MainFrame extends JFrame {
 	JMenuItem menuItem_1 = new JMenuItem("关闭手机端签到");
 	static JMenuItem menuItem_2 = new JMenuItem("保存本节课考勤信息");
 	static JMenu menu_1 = new JMenu("课堂交流");
-	JMenu menu_2 = new JMenu("投票统计");
+	static JMenu menu_2 = new JMenu("投票统计");
 	JMenu menu_3 = new JMenu("当堂测试");
 	JMenu menu_4 = new JMenu("帮助");
 
@@ -203,13 +203,14 @@ public class MainFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Question question = new Question();
 				question.setVisible(true);
-				menu_1.setVisible(false);
+				menu_1.setEnabled(false);
 			}
 		});
 		menuBar.add(menu_1);
 		menu_2.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
+		        menu_2.setEnabled(false);
 		        Vote frame = new Vote();
                 frame.setVisible(true);
 		    }

@@ -232,8 +232,6 @@ public class OsangProjectActivity extends Activity {
 	     */
 	            switch (keyCode) {
 	                case KeyEvent.KEYCODE_ENTER:
-
-	                    
 	                return true;
 	            }
 	            return super.onKeyDown(keyCode, event);

@@ -62,13 +62,13 @@ public class OsangProject2 extends TabActivity {
 		TabHost tabHost = getTabHost();
 		LayoutInflater.from(this).inflate(R.layout.main2, tabHost.getTabContentView(),true);
 		tabHost.addTab(tabHost.newTabSpec("att")
-				.setIndicator("签到"/*,getResources().getDrawable(R.drawable.i3)*/)
+				.setIndicator("签到",getResources().getDrawable(R.drawable.icon_att))
 				.setContent(R.id.att));
 		tabHost.addTab(tabHost.newTabSpec("communicate")
-				.setIndicator("交流"/*,getResources().getDrawable(R.drawable.i2)*/)
+				.setIndicator("交流",getResources().getDrawable(R.drawable.icon_com))
 				.setContent(R.id.commnunication));
 	      tabHost.addTab(tabHost.newTabSpec("vote")
-	                .setIndicator("投票统计"/*,getResources().getDrawable(R.drawable.i2)*/)
+	                .setIndicator("投票统计",getResources().getDrawable(R.drawable.icon_vote))
 	                .setContent(R.id.relativeLayout_vote));
 	     
 		 
@@ -203,86 +203,7 @@ public class OsangProject2 extends TabActivity {
                 }
             }
         });
-
-
-		/*        /*btn_voteSend.setOnClickListener(new OnClickListener(){
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if(!strVoteContent.equals(null)){
-                    try {
-                        os=s.getOutputStream();
-                        os.write((strVoteContent+"\r\n").getBytes("utf-8"));
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    checkBox_a.setChecked(false);
-                    checkBox_a.setEnabled(false);
-                    checkBox_b.setChecked(false);
-                    checkBox_b.setEnabled(false);
-                    checkBox_c.setChecked(false);
-                    checkBox_c.setEnabled(false);
-                    checkBox_d.setChecked(false);
-                    checkBox_d.setEnabled(false);
-                    checkBox_e.setChecked(false);
-                    checkBox_e.setEnabled(false);
-                    checkBox_waiver.setChecked(false);
-                    checkBox_waiver.setEnabled(false);
-
-                    checkBox_waiver.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-                        public void onCheckedChanged(CompoundButton buttonView,
-                                boolean isChecked) {
-                            if(isChecked){
-                                checkBox_a.setChecked(false);
-                                checkBox_a.setEnabled(false);
-                                checkBox_b.setChecked(false);
-                                checkBox_b.setEnabled(false);
-                                checkBox_c.setChecked(false);
-                                checkBox_c.setEnabled(false);
-                                checkBox_d.setChecked(false);
-                                checkBox_d.setEnabled(false);
-                                checkBox_e.setChecked(false);
-                                checkBox_e.setEnabled(false);
-                            }
-                            else{
-                                checkBox_a.setEnabled(true);
-                                checkBox_b.setEnabled(true);
-                                checkBox_c.setEnabled(true);
-                                checkBox_d.setEnabled(true);
-                                checkBox_e.setEnabled(true);
-                            }
-                        }
-                    });
-                }
-            }           
-        });
-                // TODO Auto-generated method stub
-                if(!strVoteContent.equals(null)){
-                    try {
-                        os=s.getOutputStream();
-                        os.write((strVoteContent+"\r\n").getBytes("utf-8"));
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    checkBox_a.setChecked(false);
-                    checkBox_a.setEnabled(false);
-                    checkBox_b.setChecked(false);
-                    checkBox_b.setEnabled(false);
-                    checkBox_c.setChecked(false);
-                    checkBox_c.setEnabled(false);
-                    checkBox_d.setChecked(false);
-                    checkBox_d.setEnabled(false);
-                    checkBox_e.setChecked(false);
-                    checkBox_e.setEnabled(false);
-                    checkBox_waiver.setChecked(false);
-                    checkBox_waiver.setEnabled(false);
-
-                    
-                }
-            }		    
-		});
-*/
+        
 		handler = new Handler()
         {
             @Override
@@ -371,69 +292,41 @@ public class OsangProject2 extends TabActivity {
                                         boolean isChecked) {
                                     
                                 }
-                            });                  
+                            });
                             btn_voteSend.setOnClickListener(new OnClickListener(){
                                 public void onClick(View v) {
+                                    String strVoteContent="oxvote";
                                     if(checkBox_a.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteA"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="A";
                                     }
+                                    else strVoteContent+="N";
                                     if(checkBox_b.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteB"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="B";
                                     }
+                                    else strVoteContent+="N";
                                     if(checkBox_c.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteC"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="C";
                                     }
+                                    else strVoteContent+="N";
                                     if(checkBox_d.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteD"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="D";
                                     }
+                                    else strVoteContent+="N";
                                     if(checkBox_e.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteE"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="E";
                                     }
+                                    else strVoteContent+="N";
                                     if(checkBox_waiver.isChecked()){
                                         btn_voteSend.setEnabled(false);
-                                        try {
-                                            os=s.getOutputStream();
-                                            os.write(("oxvoteX"+"\r\n").getBytes("utf-8"));
-                                        } catch (IOException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
+                                        strVoteContent+="X";
                                     }
+                                    else strVoteContent+="N";
+                                    
                                     if(!btn_voteSend.isEnabled()){
                                         checkBox_a.setVisibility(View.VISIBLE);
                                         checkBox_b.setVisibility(View.VISIBLE);
@@ -453,9 +346,20 @@ public class OsangProject2 extends TabActivity {
                                         checkBox_d.setChecked(false);
                                         checkBox_e.setChecked(false);
                                         checkBox_waiver.setChecked(false);
+                                        textView_votePermission.setText("-投票已提交，请等待-");
+                                        textView_votePermission.setTextColor(Color.RED);
+                                        
+                                        try {
+                                            os=s.getOutputStream();
+                                            os.write((strVoteContent+"\r\n").getBytes("utf-8"));
+                                        } catch (IOException e) {
+                                            // TODO Auto-generated catch block
+                                            e.printStackTrace();
+                                        }
                                     }
                                 }
                             });
+                            
                         }
                         else {
                             //不可多选时
@@ -525,7 +429,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteA"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteANNNNN"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -535,7 +439,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteB"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteNBNNNN"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -545,7 +449,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteC"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteNNCNNN"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -555,7 +459,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteD"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteNNNDNN"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -565,7 +469,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteE"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteNNNNEN"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -575,7 +479,7 @@ public class OsangProject2 extends TabActivity {
                                         btn_voteSend.setEnabled(false);
                                         try {
                                             os=s.getOutputStream();
-                                            os.write(("oxvoteX"+"\r\n").getBytes("utf-8"));
+                                            os.write(("oxvoteNNNNNX"+"\r\n").getBytes("utf-8"));
                                         } catch (IOException e) {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
@@ -600,6 +504,8 @@ public class OsangProject2 extends TabActivity {
                                         checkBox_d.setChecked(false);
                                         checkBox_e.setChecked(false);
                                         checkBox_waiver.setChecked(false);
+                                        textView_votePermission.setText("-投票已提交，请等待-");
+                                        textView_votePermission.setTextColor(Color.RED);
                                     }
                                 }
                             });

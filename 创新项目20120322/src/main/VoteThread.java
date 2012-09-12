@@ -13,6 +13,7 @@ public class VoteThread extends Thread{
             while(true){
                for(clientMsg msg:Socketinitialize.allmsg){
                    if(msg.haveNewVote){
+                       
                        if(msg.sendVoteNew().charAt(6)=='A')
                            Vote.count[0]++;
                        if(msg.sendVoteNew().charAt(7)=='B')
@@ -25,6 +26,7 @@ public class VoteThread extends Thread{
                            Vote.count[4]++;
                        if(msg.sendVoteNew().charAt(11)=='X')
                            Vote.count[5]++;                       
+
                        }
                    }
                Vote.intCountAll=Vote.count[0]+Vote.count[1]+Vote.count[2]+Vote.count[3]+Vote.count[4]+Vote.count[5];

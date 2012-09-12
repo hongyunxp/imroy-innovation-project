@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -163,9 +160,7 @@ public class Login extends JDialog {
 		contentPanel.add(password);
 		contentPanel.add(username);
 	}
-    
-
-
+	
 	public void Initialize() throws IOException{
 	/*初始化教师信息*/
 		BufferedReader br = new BufferedReader(new FileReader("user_infor.txt"));

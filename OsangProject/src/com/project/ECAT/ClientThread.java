@@ -1,5 +1,5 @@
 
-package com.My.OsangProject;
+package com.project.ECAT;
 
 import java.io.BufferedReader;
 import java.io.IOException;

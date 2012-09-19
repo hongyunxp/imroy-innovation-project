@@ -31,7 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class OsangProjectActivity extends Activity {
+public class ECAuxiliaryToolActivity extends Activity {
 
     private final static String TAG = "WifiAdmin";
     
@@ -117,7 +117,7 @@ public class OsangProjectActivity extends Activity {
 			public void onClick(View v)
 			{
 			    /*完全关闭并推出程序，仅有finish（）的话只能实现销毁当前activity*/
-				OsangProjectActivity.this.finish();
+				ECAuxiliaryToolActivity.this.finish();
 				System.exit(0); 
 			}
 		});
@@ -163,7 +163,7 @@ public class OsangProjectActivity extends Activity {
 		{
 			
 			Intent intent1 = new Intent();
-			intent1.setClass(OsangProjectActivity.this, About.class);
+			intent1.setClass(ECAuxiliaryToolActivity.this, About.class);
 			startActivity(intent1);
 			break;
 		}
@@ -203,9 +203,9 @@ public class OsangProjectActivity extends Activity {
 			             class_infor.putString("class_info",id+"#"+wlan_name+"#"+result);
 			             Intent intent = new Intent();
 			             intent.putExtras(class_infor);
-			             intent.setClass(OsangProjectActivity.this, OsangProject2.class);
+			             intent.setClass(ECAuxiliaryToolActivity.this, MainActivity.class);
 			             startActivity(intent);
-			             OsangProjectActivity.this.finish();
+			             ECAuxiliaryToolActivity.this.finish();
 
 			        }
 			        catch (SocketException e)

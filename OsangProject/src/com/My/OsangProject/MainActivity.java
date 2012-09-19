@@ -11,6 +11,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +27,12 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 
-public class OsangProject2 extends TabActivity {
+public class MainActivity extends TabActivity {
     TextView textView_id,textView_wlanName,textView_className,
     textView_teacherName,textView_classCategory,textView_credit,
     textView_classTime;
+    
+    EditText msg,editView_1to5,editView_6to10,editView_11to15,editView_16to20;
     
     public CheckBox checkBox_a,
             checkBox_b,
@@ -40,8 +45,8 @@ public class OsangProject2 extends TabActivity {
             vote_permission = false,
             exam_permission = false;
     
-    Button btn_send,btn_voteSend;
-	TextView textView_comPermission,textView_votePermission;
+    Button btn_send,btn_voteSend,btn_examSend;
+	TextView textView_comPermission,textView_votePermission,textView_examPermission;
 	
 	int intChoiceNum;
 	boolean isMultiChoice,isWaiverable;
@@ -67,9 +72,12 @@ public class OsangProject2 extends TabActivity {
 		tabHost.addTab(tabHost.newTabSpec("communicate")
 				.setIndicator("交流",getResources().getDrawable(R.drawable.icon_com))
 				.setContent(R.id.commnunication));
-	      tabHost.addTab(tabHost.newTabSpec("vote")
+	    tabHost.addTab(tabHost.newTabSpec("vote")
 	                .setIndicator("投票统计",getResources().getDrawable(R.drawable.icon_vote))
 	                .setContent(R.id.relativeLayout_vote));
+	    tabHost.addTab(tabHost.newTabSpec("exam")
+                .setIndicator("当堂测验",getResources().getDrawable(R.drawable.icon_vote))
+                .setContent(R.id.relativeLayout_exam));
 	     
 		 
 		
@@ -97,9 +105,9 @@ public class OsangProject2 extends TabActivity {
         public void onClick(View v)
             {
             Intent intent = new Intent();
-            intent.setClass(OsangProject2.this, OsangProjectActivity.class);
+            intent.setClass(MainActivity.this, ECAuxiliaryToolActivity.class);
             startActivity(intent);
-            OsangProject2.this.finish();
+            MainActivity.this.finish();
             }
         });
 	    
@@ -139,8 +147,8 @@ public class OsangProject2 extends TabActivity {
 		textView_comPermission.setTextColor(Color.RED);
 		final EditText msg = (EditText)findViewById(R.id.editView_show);
 		
-	    final Button btn_send = (Button)findViewById(R.id.btn_send);
-	        btn_send.setEnabled(false);
+	    btn_send = (Button)findViewById(R.id.btn_send);
+	    btn_send.setEnabled(false);
 		btn_send.setOnClickListener(new OnClickListener()
         {
         public void onClick(View v)
@@ -157,7 +165,7 @@ public class OsangProject2 extends TabActivity {
             }
         });
 //投票统计*******************************************************************
-		//*******************************************************************
+//************************************************************************
 	    btn_voteSend = (Button)findViewById(R.id.button_voteSend);
 	    
 	    textView_votePermission = (TextView)findViewById(R.id.textView_votePermission);
@@ -204,6 +212,23 @@ public class OsangProject2 extends TabActivity {
             }
         });
         
+//当堂测验*******************************************************************
+//************************************************************************
+        btn_examSend = (Button)findViewById(R.id.button_examSend);
+        btn_examSend.setEnabled(false);
+        
+        textView_examPermission = (TextView)findViewById(R.id.textView_examPermission);
+        textView_examPermission.setTextColor(Color.RED);
+        
+        editView_1to5 = (EditText)findViewById(R.id.editView_1to5);
+        editView_6to10 = (EditText)findViewById(R.id.editView_6to10);
+        editView_11to15 = (EditText)findViewById(R.id.editView_11to15);
+        editView_16to20 = (EditText)findViewById(R.id.editView_16to20);
+        editView_1to5.setEnabled(false);
+        editView_6to10.setEnabled(false);
+        editView_11to15.setEnabled(false);
+        editView_16to20.setEnabled(false);        
+        
 		handler = new Handler()
         {
             @Override
@@ -216,7 +241,7 @@ public class OsangProject2 extends TabActivity {
 //开启交流功能*******************************************************************************************************
                     if(strMsg.equals("comON")){
                         com_permission=true;
-                        textView_comPermission.setText("-交流功能已开启，请控制每次发言内容在50字内-");
+                        textView_comPermission.setText("-交流功能已开启-");
                         textView_comPermission.setTextColor(Color.GREEN);
                         btn_send.setEnabled(true);
                     }
@@ -346,6 +371,10 @@ public class OsangProject2 extends TabActivity {
                                         checkBox_d.setChecked(false);
                                         checkBox_e.setChecked(false);
                                         checkBox_waiver.setChecked(false);
+
+                                        textView_votePermission.setText("-投票已提交，请等待-");
+                                        textView_votePermission.setTextColor(Color.RED);
+
                                         textView_votePermission.setText("-投票已提交，请等待-");
                                         textView_votePermission.setTextColor(Color.RED);
                                         
@@ -356,6 +385,7 @@ public class OsangProject2 extends TabActivity {
                                             // TODO Auto-generated catch block
                                             e.printStackTrace();
                                         }
+
                                     }
                                 }
                             });
@@ -512,8 +542,75 @@ public class OsangProject2 extends TabActivity {
                         }
                     }
 //开启测试功能*******************************************************************************************************
-                    if(strMsg.equals("examON")){
+                    if(strMsg.startsWith("examON")){
                         exam_permission=true;
+                        final int intProblemNum;
+                        int intChoiceNum;
+                        String[] temStr = strMsg.split(",");
+                        intProblemNum = Integer.valueOf(temStr[1]);
+                        intChoiceNum = Integer.valueOf(temStr[2]);
+                        
+                        textView_examPermission.setText("-已开启当堂测验功能，共"+intProblemNum+"题-");
+                        textView_examPermission.setTextColor(Color.GREEN);
+                        
+                        btn_examSend.setEnabled(true);
+                        switch(intProblemNum){
+                            case 5:
+                                editView_1to5.setEnabled(true);
+                            editView_6to10.setEnabled(false);
+                            editView_11to15.setEnabled(false);
+                            editView_16to20.setEnabled(false);
+                            break;
+                            case 10:
+                                editView_1to5.setEnabled(true);
+                                editView_6to10.setEnabled(true);
+                                editView_11to15.setEnabled(false);
+                            editView_16to20.setEnabled(false);
+                            break;
+                            case 15:
+                                editView_1to5.setEnabled(true);
+                                editView_6to10.setEnabled(true);
+                                editView_11to15.setEnabled(true);
+                                editView_16to20.setEnabled(false);
+                            break;
+                            case 20:
+                                editView_1to5.setEnabled(true);
+                                editView_6to10.setEnabled(true);
+                                editView_11to15.setEnabled(true);
+                                editView_16to20.setEnabled(true);
+                                break;
+                        }
+                        btn_examSend.setOnClickListener(new OnClickListener(){
+                            public void onClick(View v) {
+                                String temAns="oxexam"+editView_1to5.getText().toString()+
+                                        editView_1to5.getText().toString()+
+                                        editView_11to15.getText().toString()+
+                                        editView_16to20.getText().toString();
+                                //if(temAns.length()==intProblemNum){
+                                    try {
+                                        os=s.getOutputStream();
+                                        os.write((temAns+"\r\n").getBytes("utf-8"));
+                                        btn_examSend.setEnabled(false);
+                                        textView_examPermission.setText("答案已提交，请等待-");
+                                        textView_examPermission.setTextColor(Color.RED);
+                                    } catch (IOException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+                                    editView_1to5.setText("");
+                                    editView_1to5.setEnabled(false);
+                                    editView_6to10.setText("");
+                                    editView_6to10.setEnabled(false);
+                                    editView_11to15.setText("");
+                                    editView_11to15.setEnabled(false);
+                                    editView_16to20.setText("");
+                                    editView_16to20.setEnabled(false);
+                                    
+                                //}
+                                
+                            }
+                        });
+                        
                     }
 //关闭交流功能*******************************************************************************************************
                     if(strMsg.equals("comOFF")){
@@ -545,14 +642,10 @@ public class OsangProject2 extends TabActivity {
  */
 	    switch (keyCode) {
 	        case KeyEvent.KEYCODE_BACK:
-/*	            Intent intent = new Intent();
-	            intent.setClass(OsangProject2.this, OsangProjectActivity.class);
-	            startActivity(intent);
-	            OsangProject2.this.finish();
-	        case KeyEvent.KEYCODE_ENTER:*/
 	            
 	        return true;
 	    }
+	    
 	    return super.onKeyDown(keyCode, event);
 	}
 }

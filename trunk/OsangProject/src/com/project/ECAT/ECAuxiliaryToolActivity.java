@@ -1,4 +1,4 @@
-package com.My.OsangProject;
+package com.project.ECAT;
 
 
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+
+import com.My.OsangProject.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

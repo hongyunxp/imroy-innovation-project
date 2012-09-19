@@ -1,9 +1,11 @@
-package com.My.OsangProject;
+package com.project.ECAT;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+
+import com.My.OsangProject.R;
 
 import android.app.TabActivity;
 import android.content.Intent;

@@ -252,9 +252,9 @@ public class Vote extends JFrame {
         localChartPanel.setPreferredSize(new Dimension(500, 270));
         contentPane.add(localChartPanel);
         
-        show = new JLabel("请设置常规选项后开启投票统计功能……");
+        show = new JLabel("请设置常规选项后开启投票统计功能");
         show.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        show.setFont(new Font("宋体", Font.PLAIN, 15));
+        show.setFont(new Font("宋体", Font.BOLD, 15));
         show.setBounds(10, 407, 602, 22);
         contentPane.add(show);
         

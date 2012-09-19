@@ -102,14 +102,14 @@ public class ServerThread extends Thread  {
 		try {
 			while((content=br.readLine())!=null){
 			    if(content.startsWith("oxvote")){
-			        this.msg.getNewVote(content);
-	                System.out.println(content);
+			        this.msg.getNewVote(content);	               
 			    }
-			        
-			        else{
-			            this.msg.getNews(content);
-		                System.out.println(content);
-		                }
+			    else if(content.startsWith("oxexam")){
+			        this.msg.getNewAns(content);
+			    }
+			    else{
+			        this.msg.getNews(content);
+			        }
 			    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

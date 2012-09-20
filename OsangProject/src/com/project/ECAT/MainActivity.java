@@ -5,17 +5,12 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
-import com.My.OsangProject.R;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +18,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -78,7 +72,7 @@ public class MainActivity extends TabActivity {
 	                .setIndicator("投票统计",getResources().getDrawable(R.drawable.icon_vote))
 	                .setContent(R.id.relativeLayout_vote));
 	    tabHost.addTab(tabHost.newTabSpec("exam")
-                .setIndicator("当堂测验",getResources().getDrawable(R.drawable.icon_vote))
+                .setIndicator("当堂测验",getResources().getDrawable(R.drawable.icon_test))
                 .setContent(R.id.relativeLayout_exam));
 	     
 		 
@@ -547,11 +541,8 @@ public class MainActivity extends TabActivity {
                     if(strMsg.startsWith("examON")){
                         exam_permission=true;
                         final int intProblemNum;
-                        int intChoiceNum;
                         String[] temStr = strMsg.split(",");
                         intProblemNum = Integer.valueOf(temStr[1]);
-                        intChoiceNum = Integer.valueOf(temStr[2]);
-                        
                         textView_examPermission.setText("-已开启当堂测验功能，共"+intProblemNum+"题-");
                         textView_examPermission.setTextColor(Color.GREEN);
                         

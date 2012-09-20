@@ -1,6 +1,6 @@
 package com.project.ECAT;
 
-import com.My.OsangProject.R;
+import com.project.ECAT.R;
 
 import android.app.Activity;
 

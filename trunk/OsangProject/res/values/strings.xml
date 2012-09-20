@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, OsangProjectActivity!</string>
-    <string name="app_name">OsangProject</string>
+     <string name="app_name">ECAT</string>
 
 </resources>

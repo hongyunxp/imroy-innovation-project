@@ -5,26 +5,19 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
-
-import com.My.OsangProject.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.ContentProviderOperation.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,9 +28,7 @@ import android.widget.TextView;
 
 public class ECAuxiliaryToolActivity extends Activity {
 
-    private final static String TAG = "WifiAdmin";
-    
-	Button confirm,exit,check_wlan;
+    Button confirm,exit,check_wlan;
 	EditText name;
     static TextView name_wlan;
 	static boolean isUDPReceived = false;
@@ -49,10 +40,7 @@ public class ECAuxiliaryToolActivity extends Activity {
 
 	// 定义WifiManager对象
     private WifiManager mWifiManager;
-	// 定义WifiInfo对象
-    private WifiInfo mWifiInfo;
-    
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +82,8 @@ public class ECAuxiliaryToolActivity extends Activity {
 
         confirm.setOnClickListener(new OnClickListener()
 		{
-		public void onClick(View v)
+		@SuppressWarnings("unchecked")
+        public void onClick(View v)
 			{
 			
 			if(name.getText().toString().length()!=0 && wlan_name!=null){
@@ -179,7 +168,8 @@ public class ECAuxiliaryToolActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}*/
 	
-	public class ReceiveUDP_THREAD extends AsyncTask{
+	@SuppressWarnings("rawtypes")
+    public class ReceiveUDP_THREAD extends AsyncTask{
 
 		@Override
 		protected Object doInBackground(Object... params) {
@@ -212,7 +202,7 @@ public class ECAuxiliaryToolActivity extends Activity {
 			        }
 			        catch (SocketException e)
 			        {
-			            e.printStackTrace();
+			            myPrepare.dismiss();
 			        }
 			        catch (IOException e)
 			        {
@@ -222,6 +212,7 @@ public class ECAuxiliaryToolActivity extends Activity {
 			return result;
 		}
 		
+        @SuppressWarnings("unchecked")
         protected void onProgressUpdate(Integer... progress) {  
              super.onProgressUpdate(progress);
         }  

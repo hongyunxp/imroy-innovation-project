@@ -8,10 +8,8 @@ import java.net.SocketException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -46,7 +44,7 @@ public class ECAuxiliaryToolActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         name = (EditText)findViewById(R.id.editView_id);
         name_wlan = (TextView)findViewById(R.id.textView_show_wlanId);
         confirm = (Button)findViewById(R.id.button_confirm);
@@ -103,8 +101,7 @@ public class ECAuxiliaryToolActivity extends Activity {
 		});
 
         exit.setOnClickListener(new OnClickListener()
-		{
-			
+		{			
 			public void onClick(View v)
 			{
 			    /*完全关闭并推出程序，仅有finish（）的话只能实现销毁当前activity*/

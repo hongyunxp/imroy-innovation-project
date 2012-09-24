@@ -575,10 +575,10 @@ public class MainActivity extends TabActivity {
                         }
                         btn_examSend.setOnClickListener(new OnClickListener(){
                             public void onClick(View v) {
-                                String temAns="oxexam"+editView_1to5.getText().toString()+
-                                        editView_1to5.getText().toString()+
-                                        editView_11to15.getText().toString()+
-                                        editView_16to20.getText().toString();
+                                String temAns="oxexam"+editView_1to5.getText().toString().toUpperCase()+
+                                        editView_6to10.getText().toString().toUpperCase()+
+                                        editView_11to15.getText().toString().toUpperCase()+
+                                        editView_16to20.getText().toString().toUpperCase();
                                 //if(temAns.length()==intProblemNum){
                                     try {
                                         os=s.getOutputStream();
